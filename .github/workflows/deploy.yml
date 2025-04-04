@@ -31,6 +31,5 @@ jobs:
         run: |
           echo "$EC2_KEY" > key.pem
           chmod 600 key.pem
-          ls ./
-          scp -i key.pem -o StrictHostKeyChecking=no ./sellary-backend*.jar $EC2_USER@$EC2_HOST:/home/service/binary/
+          scp -i key.pem -o StrictHostKeyChecking=no ./sellary-backend/sellary*.jar $EC2_USER@$EC2_HOST:/home/service/binary/
 
