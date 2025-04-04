@@ -20,7 +20,7 @@ jobs:
           distribution: 'temurin'
 
       - name: Build with Gradle
-        run: ./sellary-backend/gradlew clean build
+        run: ./gradlew clean build
         working-directory: ./sellary-backend 
 
       - name: Upload JAR to EC2
