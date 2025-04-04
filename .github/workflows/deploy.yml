@@ -23,13 +23,12 @@ jobs:
         run: ./gradlew clean build
         working-directory: ./sellary-backend 
 
-      - name: Upload JAR to EC2
+      - name: Upload JAR to S3
         env:
-          EC2_HOST: ${{ secrets.EC2_WAS }}
-          EC2_USER: ${{ secrets.EC2_HOST }}
-          EC2_KEY: ${{ secrets.EC2_SSH_KEY }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          S3_BUCKET: ${{ secrets.S3_BUCKET }}
         run: |
-          echo "$EC2_KEY" > key.pem
-          chmod 600 key.pem
-          scp -i key.pem -o StrictHostKeyChecking=no ./sellary-backend/build/libs/sellary-0.0.1-SNAPSHOT.jar $EC2_USER@$EC2_HOST:/home/service/binary/
+          aws s3 cp ./sellary-backend/build/libs/sellary-0.0.1-SNAPSHOT.jar s3://$S3_BUCKET/sellary.jar --region $AWS_REGION
 
