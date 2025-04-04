@@ -21,6 +21,7 @@ jobs:
 
       - name: Build with Gradle
         run: ./sellary-backend/gradlew clean build
+        working-directory: ./sellary-backend 
 
       - name: Upload JAR to EC2
         env:
