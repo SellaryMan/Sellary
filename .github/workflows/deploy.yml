@@ -32,3 +32,18 @@ jobs:
         run: |
           aws s3 cp ./sellary-backend/build/libs/sellary-0.0.1-SNAPSHOT.jar s3://$S3_BUCKET/sellary.jar --region $AWS_REGION
 
+      - name: Run on EC2 via SSM
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          S3_BUCKET: ${{ secrets.S3_BUCKET }}
+          WAS_INSTANCE_ID: ${{ secrets.WAS_INSTANCE_ID }}
+        run: |
+          aws ssm send-command \
+            --document-name "AWS-RunShellScript" \
+            --instance-ids "$WAS_INSTANCE_ID" \
+            --comment "Deploy sellary.jar from S3" \
+            --parameters 'commands=["aws s3 cp s3://'"$S3_BUCKET"'/sellary.jar /home/ec2-user/sellary.jar"]' \
+            --region "$AWS_REGION" \
+            --output text
