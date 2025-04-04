@@ -44,6 +44,6 @@ jobs:
             --document-name "AWS-RunShellScript" \
             --instance-ids "$WAS_INSTANCE_ID" \
             --comment "Deploy sellary.jar from S3" \
-            --parameters 'commands=["aws s3 cp s3://'"$S3_BUCKET"'/sellary.jar /home/ec2-user/sellary.jar"]' \
+            --parameters 'commands=["aws s3 cp s3://'"$S3_BUCKET"'/sellary.jar /home/service/binary/sellary.jar"]' \
             --region "$AWS_REGION" \
             --output text
