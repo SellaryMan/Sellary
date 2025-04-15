@@ -19,6 +19,14 @@ jobs:
         with:
           java-version: '21'
           distribution: 'temurin'
+          
+      - name: Set environment variables
+        run: |
+          echo "SERVER_PORT=${{ secrets.SERVER_PORT }}" >> $GITHUB_ENV
+          echo "DATASOURCE_URL=${{ secrets.DATASOURCE_URL }}" >> $GITHUB_ENV
+          echo "DATASOURCE_USERNAME=${{ secrets.DATASOURCE_USERNAME }}" >> $GITHUB_ENV
+          echo "DATASOURCE_PASSWORD=${{ secrets.DATASOURCE_PASSWORD }}" >> $GITHUB_ENV
+          
 
       - name: Build with Gradle
         run: ./gradlew clean build
