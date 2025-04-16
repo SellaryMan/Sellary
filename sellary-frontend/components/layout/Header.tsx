@@ -1,3 +1,4 @@
+import Link from "next/link";
 const Header=()=>{
     return(
         <header className="flex items-center justify-between sticky top-0 z-10 text-white p-3">
@@ -5,7 +6,7 @@ const Header=()=>{
             <div className="">
                 {/* 로고 */}
                 {/* <Image src="" alt="logo"/> */}
-                SELLARY
+                <Link href="/">SELLARY</Link>
             </div>
             {/* 가운데 영역 */}
             <div className="justify-center"></div>
