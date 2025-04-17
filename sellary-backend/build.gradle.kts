@@ -40,6 +40,9 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+
+	// JASYPT dependencies
+	implementation("com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.3")
 }
 
 kotlin {

@@ -3,6 +3,7 @@ server:
 
 spring:
   datasource:
-    url: { { datasource.url } }
-    username: { { datasource.username } }
-    password: { { datasource.password } }
+    url: { { datasource.url } } # TODO: 박찬빈 접속정보 내놔
+    username: ENC(QDCu9UJKwzeMR+KZWBuQ6rUl0Pq1FxO8)
+    password: ENC(P7Xt4cPUtkHaDTlz8OfIQb/movBDCxic)
+    driver-class-name: org.postgresql.Driver
