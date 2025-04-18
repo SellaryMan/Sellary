@@ -28,7 +28,7 @@ const SidebarElements : SidebarElementsType =[
 ]
 const Sidebar = () => {
     return (
-        <aside className="flex flex-col gap-2 sticky top-0 p-4 self-start h-full min-h-screen border-gray-200 border-r-[0.2px] shadow-xs shadow-right bg-gray-200">
+        <aside className="flex flex-col gap-2 p-4 border-gray-200 border-r-[0.2px] shadow-xs shadow-right bg-gray-200">
         {SidebarElements.map((el: SidebarParent, idx: number) => (
             <div key={idx} className="flex flex-col gap-1">
               <div className="font-medium text-gray-700">{el.name}</div>

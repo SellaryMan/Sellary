@@ -1,7 +1,7 @@
 import Link from "next/link";
 const Header=()=>{
     return(
-        <header className="flex items-center justify-between sticky top-0 z-10 text-white p-3">
+        <header className="flex items-center justify-between text-white p-3 w-screen">
             {/* 왼쪽 영역 */}
             <div className="">
                 {/* 로고 */}
