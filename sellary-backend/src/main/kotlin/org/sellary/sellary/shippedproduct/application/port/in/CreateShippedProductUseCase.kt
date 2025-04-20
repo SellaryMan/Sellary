@@ -3,5 +3,5 @@ package org.sellary.sellary.shippedproduct.application.port.`in`
 import org.sellary.sellary.shippedproduct.application.port.dto.ShippedProductCreateCommand
 
 interface CreateShippedProductUseCase {
-    fun create(shippedProduct: ShippedProductCreateCommand)
+    fun create(shippedProductCreateCommand: ShippedProductCreateCommand)
 }
