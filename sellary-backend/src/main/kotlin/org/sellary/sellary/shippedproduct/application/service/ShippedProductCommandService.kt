@@ -3,6 +3,7 @@ package org.sellary.sellary.shippedproduct.application.service
 import org.sellary.sellary.shippedproduct.application.domain.ShippedProduct
 import org.sellary.sellary.shippedproduct.application.domain.ShippedProductCost
 import org.sellary.sellary.shippedproduct.application.domain.ShippedProductExp
+import org.sellary.sellary.shippedproduct.application.domain.ShippedProductType
 import org.sellary.sellary.shippedproduct.application.port.dto.ShippedProductCreateCommand
 import org.sellary.sellary.shippedproduct.application.port.`in`.CreateShippedProductUseCase
 import org.sellary.sellary.shippedproduct.application.port.out.ShippedProductCommandPort
@@ -23,7 +24,7 @@ class ShippedProductCommandService(
 private fun ShippedProduct.Companion.fromDto(shippedProductCreateCommand: ShippedProductCreateCommand): ShippedProduct {
     return ShippedProduct(
         name = shippedProductCreateCommand.name,
-        type = shippedProductCreateCommand.type,
+        type = ShippedProductType.from(shippedProductCreateCommand.type),
         code = shippedProductCreateCommand.code,
         barcode = shippedProductCreateCommand.barcode,
         keywords = shippedProductCreateCommand.keywords ?: emptySet(),

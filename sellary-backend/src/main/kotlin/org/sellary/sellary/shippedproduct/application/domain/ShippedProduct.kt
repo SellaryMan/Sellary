@@ -3,7 +3,7 @@ package org.sellary.sellary.shippedproduct.application.domain
 data class ShippedProduct(
     val id: Long? = null,
     val name: String,
-    val type: String,
+    val type: ShippedProductType,
     val code: String,
     val barcode: String? = null,
     val keywords: Set<String> = emptySet(),
