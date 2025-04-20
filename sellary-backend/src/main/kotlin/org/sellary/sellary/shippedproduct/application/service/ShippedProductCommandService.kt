@@ -15,7 +15,7 @@ class ShippedProductCommandService(
 ) : CreateShippedProductUseCase {
 
     override fun create(shippedProductCreateCommand: ShippedProductCreateCommand) {
-        val shippedProduct = ShippedProduct.fromDto(shippedProductCreateCommand);
+        val shippedProduct = ShippedProduct.fromDto(shippedProductCreateCommand)
 
         shippedProductCommandPort.create(shippedProduct)
     }
