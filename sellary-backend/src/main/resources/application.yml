@@ -13,4 +13,4 @@ spring:
 
 jasypt:
   encryptor:
-    password: EXIT_DAOU_2025#@!
+    password: { { jasypt.encryptor.password } }
