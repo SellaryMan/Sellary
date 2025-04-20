@@ -1,1 +1,10 @@
-spring.application.name=sellary
+spring:
+  application:
+    name: sellary
+
+  jpa:
+    open-in-view: false
+
+    hibernate:
+      ddl-auto: validate
+

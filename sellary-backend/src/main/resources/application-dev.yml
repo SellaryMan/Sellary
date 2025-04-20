@@ -1,0 +1,8 @@
+server:
+  port: { { sever.port } }
+
+spring:
+  datasource:
+    url: { { datasource.url } }
+    username: { { datasource.username } }
+    password: { { datasource.password } }
