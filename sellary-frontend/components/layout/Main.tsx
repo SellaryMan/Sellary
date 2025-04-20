@@ -4,7 +4,7 @@ const Main = ({ children }: {
 }) => {
     return(
         <>
-            <main>
+            <main className='bg-gray-300 m-1'>
             {children}
             </main>
         </>
