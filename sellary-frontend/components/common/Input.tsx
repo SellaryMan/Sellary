@@ -4,7 +4,16 @@ interface InputBaseProps {
   label?: string;
   isRequired?: boolean;
 }
-
+interface InputSelectProps {
+  selectId : string;
+  options : TOption[];
+  selectedValue: string;
+  onSelectChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+}
+type TOption={
+  id : string;
+  value : string;
+}
 const FlexBox =({children}:{children:React.ReactNode})=>{
   return(
     <div className="flex w-full">
@@ -29,6 +38,34 @@ const Input = {
         className={className}
           ref={ref}
           {...props}
+        />
+      </FlexBox>
+    );
+  }),
+  Select: React.forwardRef<
+    HTMLInputElement, 
+    InputBaseProps & InputSelectProps& React.InputHTMLAttributes<HTMLInputElement>
+  >(({ label, isRequired, className, selectId,options,selectedValue,onSelectChange,...props }, ref) => {
+    const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+      onSelectChange(e);
+    };
+    return (
+      <FlexBox>
+        <select
+          className={className}
+          onChange={(e)=>handleSelectChange(e)}
+          value={selectedValue}>
+          {options.map((option) => (
+            <option key={option.id} value={option.value}>
+              {option.value}
+            </option>
+          ))}
+        </select>
+        <input
+          ref={ref}
+          className="hidden"
+          value = {selectedValue}
+          readOnly
         />
       </FlexBox>
     );
