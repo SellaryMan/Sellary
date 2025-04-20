@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController("/shipped-product")
 class ShippedProductController(
-    val createUseCase: CreateShippedProductUseCase,
+    private val createUseCase: CreateShippedProductUseCase,
 ) {
     @PostMapping
-    fun foo(@RequestBody createShippedProductCommand: ShippedProductCreateCommand) {
+    fun createShippedProduct(@RequestBody createShippedProductCommand: ShippedProductCreateCommand) {
         createUseCase.create(createShippedProductCommand)
     }
 }
