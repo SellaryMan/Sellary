@@ -23,7 +23,7 @@ const comOptions =  [
 const SearchBox = () => {
     const [code, setCode] = useState("")
     const [com, setCom] = useState(comOptions[0].value)
-    
+
     const onChangeCode =(e: React.ChangeEvent<HTMLInputElement>)=>{
       setCode(e.target.value)
       console.log(code)
@@ -39,17 +39,10 @@ const SearchBox = () => {
       <form className="grid grid-cols-9 gap-1 p-2 w-full max-w-full bg-gray-200">
         <Input.Select
           className={formElementClass}
-          selectId="회사명"
           options = {comOptions}
           selectedValue={com}
           onSelectChange={(e)=>onChangeCom(e)}
         />
-        {/* <select className={formElementClass} defaultValue={"default"}>
-          <option value ="default" >회사명</option>
-          <option >1</option>
-          <option>2</option>
-          <option>3</option>
-        </select> */}
         <select className={formElementClass}>
         <option value ="default" >공급사</option>
           <option>1</option>

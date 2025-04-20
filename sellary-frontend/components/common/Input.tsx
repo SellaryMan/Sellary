@@ -5,7 +5,6 @@ interface InputBaseProps {
   isRequired?: boolean;
 }
 interface InputSelectProps {
-  selectId : string;
   options : TOption[];
   selectedValue: string;
   onSelectChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
@@ -45,7 +44,7 @@ const Input = {
   Select: React.forwardRef<
     HTMLInputElement, 
     InputBaseProps & InputSelectProps& React.InputHTMLAttributes<HTMLInputElement>
-  >(({ label, isRequired, className, selectId,options,selectedValue,onSelectChange,...props }, ref) => {
+  >(({ label, isRequired, className,options,selectedValue,onSelectChange,...props }, ref) => {
     const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
       onSelectChange(e);
     };
