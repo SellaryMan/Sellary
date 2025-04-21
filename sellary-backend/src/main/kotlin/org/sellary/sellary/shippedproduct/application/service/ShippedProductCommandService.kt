@@ -27,7 +27,7 @@ private fun ShippedProduct.Companion.fromDto(shippedProductCreateCommand: Shippe
         type = ShippedProductType.from(shippedProductCreateCommand.type),
         code = shippedProductCreateCommand.code,
         barcode = shippedProductCreateCommand.barcode,
-        keywords = shippedProductCreateCommand.keywords ?: emptySet(),
+        tags = shippedProductCreateCommand.keywords ?: emptySet(),
         shippedProductExp = ShippedProductExp.fromDto(shippedProductCreateCommand),
         shippedProductCost = ShippedProductCost.fromDto(shippedProductCreateCommand),
     )

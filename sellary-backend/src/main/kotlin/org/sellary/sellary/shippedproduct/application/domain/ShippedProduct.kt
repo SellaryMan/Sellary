@@ -6,7 +6,7 @@ data class ShippedProduct(
     val type: ShippedProductType,
     val code: String,
     val barcode: String? = null,
-    val keywords: Set<String> = emptySet(),
+    val tags: Set<String> = emptySet(),
     val shippedProductExp: ShippedProductExp? = null,
     val shippedProductCost: ShippedProductCost? = null,
 ) {
