@@ -21,7 +21,7 @@ jobs:
           distribution: 'temurin'
 
       - name: Build with Gradle
-        run: ./graldew bootJar --exclude-task test
+        run: ./gradlew bootJar --exclude-task test
         working-directory: ./sellary-backend 
 
       - name: Upload JAR to S3
