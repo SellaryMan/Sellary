@@ -4,7 +4,7 @@ import { useState } from "react";
 import useSearch from "@/hooks/useSearch";
 const SearchBox = () => {
     const [code, setCode] = useState("")
-
+    const {setMinPrice,setMaxPrice} = useSearch();
     const onChangeCode =(e: React.ChangeEvent<HTMLInputElement>)=>{
       setCode(e.target.value)
     }
@@ -13,10 +13,17 @@ const SearchBox = () => {
     const formElementClass = "flex border border-gray-300 w-full bg-white text-[0.6rem] px-1";
     return (
       <form className="grid grid-cols-9 gap-1 p-2 w-full max-w-full bg-gray-200">
-        <Input.Select
+        {/* <Input.Select
           className={formElementClass}
           selectedValue={com}
-        />
+        /> */}
+        {/* <Input.Range
+          label={"test"}
+          isRequired={true}
+          className={formElementClass}
+          setMaxValue={setMaxPrice}
+          setMinValue={setMinPrice}
+        /> */}
         <select className={formElementClass}>
         <option value ="default" >공급사</option>
           <option>1</option>

@@ -12,7 +12,7 @@ interface SearchElements {
     purchase_price?: {
         min_price?: number | null;
         max_price?: number | null;
-    } | null;
+    };
     keywords?: Array<string> | null;
     exp?: Date | null;
     quantity?: {
@@ -30,7 +30,10 @@ const initialSearchState: SearchElements = {
     type: null,
     product_code: null,
     barcode: null,
-    purchase_price: null,
+    purchase_price: {
+        max_price : null,
+        min_price : null
+    },
     keywords: null,
     exp: null,
     quantity: null,
@@ -46,7 +49,8 @@ interface IUseSearch {
     setType : (type: string|null) => void;
     setProductCode : (product_code : string|null) => void;
     setBarCode : (barcode : string|null)=>void;
-    setPurchasePrice: (price: { min_price?: number | null; max_price?: number | null } | null) => void;
+    setMinPrice: (min_price: number) => void;
+    setMaxPrice: (max_price: number) => void;
     setKeywords : (keywords : string[])=>void;
     setExp : (exp :Date | null)=>void;
     setQuantity : (quantity : number|null) => void;
@@ -59,7 +63,8 @@ interface IUseSearch {
 const useSearch = (): IUseSearch => {
     const [searchElements, setSearchElements] = useState<SearchElements>(initialSearchState);
     
-    // key를 제네릭으로 모듈화 잊지말자
+    console.log(searchElements.purchase_price);
+    // key를 제네릭으로 해서  모듈화 잊지말자
     const setCompanyName = useCallback((companyName: string | null) => {
         setSearchElements(prev => ({ ...prev, company_name: companyName }));
     }, []);
@@ -84,8 +89,24 @@ const useSearch = (): IUseSearch => {
         setSearchElements(prev => ({ ...prev, barcode }));
     }, []);
 
-    const setPurchasePrice = useCallback((price: { min_price?: number | null; max_price?: number | null } | null) => {
-        setSearchElements(prev => ({ ...prev, purchase_price: price }));
+    const setMinPrice = useCallback((minPrice: number) => {
+        setSearchElements(prev => ({
+        ...prev,
+        purchase_price: {
+            ...(prev.purchase_price || {}),
+            min_price: minPrice
+        }
+        }));
+    }, []);
+    
+    const setMaxPrice = useCallback((maxPrice: number) => {
+        setSearchElements(prev => ({
+        ...prev,
+        purchase_price: {
+            ...(prev.purchase_price || {}),
+            max_price: maxPrice
+        }
+        }));
     }, []);
 
     const setKeywords = useCallback((keywords: string[]) => {
@@ -130,7 +151,8 @@ const useSearch = (): IUseSearch => {
         setType,
         setProductCode,
         setBarCode,
-        setPurchasePrice,
+        setMinPrice,
+        setMaxPrice,
         setKeywords,
         setExp,
         setQuantity,

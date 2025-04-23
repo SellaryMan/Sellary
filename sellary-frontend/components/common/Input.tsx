@@ -9,6 +9,10 @@ interface InputSelectProps {
   selectedValue: string;
   onSelectChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
 }
+interface InputRangeProps {
+  setMinValue : (min : number)=>void;
+  setMaxValue : (max : number)=>void;
+}
 type TOption={
   id : string;
   value : string;
@@ -65,6 +69,43 @@ const Input = {
           className="hidden"
           value = {selectedValue}
           readOnly
+        />
+      </FlexBox>
+    );
+  }),
+  Range: React.forwardRef<
+    HTMLInputElement, 
+    InputBaseProps & InputRangeProps& React.InputHTMLAttributes<HTMLInputElement>
+  >(({ label, isRequired, className,setMinValue, setMaxValue,...props }, ref) => {
+    const handleMinOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      setMinValue(Number(e.currentTarget.value));
+    };
+    const handleMaxOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      setMaxValue(Number(e.currentTarget.value));
+    };
+    return (
+      <FlexBox>
+        {label && (
+          <label>
+            {isRequired && <span>*</span>}
+            {label}
+          </label>
+        )}
+        
+        <input
+          className={className}
+          ref={ref}
+          placeholder="min"
+          onChange={(e)=>handleMinOnChange(e)}
+          {...props}
+
+        />
+        <input
+          className={className}
+          ref={ref}
+          placeholder="max"
+          onChange={(e)=>handleMaxOnChange(e)}
+          {...props}
         />
       </FlexBox>
     );
