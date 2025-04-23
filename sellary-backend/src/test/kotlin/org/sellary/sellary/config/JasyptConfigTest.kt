@@ -9,9 +9,8 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.context.annotation.Import
 import org.springframework.test.context.ActiveProfiles
 
-@SpringBootTest
+@SpringBootTest(classes = [JasyptConfig::class])
 @ActiveProfiles("local")
-@Import(JasyptConfig::class)
 internal class JasyptConfigTest {
 
     @Autowired
