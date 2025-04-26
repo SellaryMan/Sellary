@@ -7,7 +7,7 @@ data class ShippedProduct(
     val code: String,
     val barcode: String? = null,
     val tags: Set<String> = emptySet(),
-    val shippedProductExp: ShippedProductExp? = null,
+    val shippedProductExp: List<ShippedProductExp> = emptyList(),
     val shippedProductCost: ShippedProductCost? = null,
 ) {
     companion object
