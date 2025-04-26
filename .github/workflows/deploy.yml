@@ -47,5 +47,5 @@ jobs:
             --comment "Deploy sellary.jar from S3" \
             --parameters 'commands=["rm -rf /home/service/binary/sellary.jar", "aws s3 cp s3://'"$S3_BUCKET"'/sellary.jar /home/service/binary/sellary.jar", "nohup /usr/lib/java/jdk-21.0.6+7/bin/java -jar /home/service/binary/sellary.jar > /home/service/logs/sellary.out 2>&1 &"]' \
             --region "$AWS_REGION" \
-            --timeout-seconds 60
+            --timeout-seconds 60 \
             --output text
