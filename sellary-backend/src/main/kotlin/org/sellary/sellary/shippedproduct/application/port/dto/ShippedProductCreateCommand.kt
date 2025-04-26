@@ -22,5 +22,4 @@ data class ShippedProductCreateCommand(
     val unitSellingPrice: Double? = null,
     val boxSellingPrice: Double? = null,
     val palletSellingPrice: Double? = null
-) {
-}
+)
