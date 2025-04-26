@@ -43,7 +43,4 @@ class ShippedProductQueryService(
 
     private fun List<ShippedProduct>.mapToDto(): List<ShippedProductDto> =
         map { ShippedProductDto.fromDomain(it) }
-
-    private fun ShippedProduct.mapToDto(): ShippedProductDto =
-        ShippedProductDto.fromDomain(this)
 }
