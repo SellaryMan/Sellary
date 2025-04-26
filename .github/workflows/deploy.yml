@@ -45,7 +45,7 @@ jobs:
             --document-name "AWS-RunShellScript" \
             --instance-ids "$WAS_INSTANCE_ID" \
             --comment "Deploy sellary.jar from S3" \
-            --parameters 'commands=["rm -rf /home/service/binary/sellary.jar"]' \
+            --parameters 'commands=["rm -rf /home/service/binary/sellary.jar", "/home/service/sellary.sh start"]' \
             --region "$AWS_REGION" \
             --timeout-seconds 60 \
             --output text
