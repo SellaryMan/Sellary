@@ -4,9 +4,9 @@ const Main = ({ children }: {
 }) => {
     return(
         <>
-            <main className='bg-gray-300 m-1'>
+            <div className='bg-gray-300'>
             {children}
-            </main>
+            </div>
         </>
     )
 }

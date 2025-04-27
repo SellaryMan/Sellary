@@ -36,7 +36,7 @@ const SearchBox = () => {
           <option>2</option>
           <option>3</option>
         </select>
-        <Input.Text className={formElementClass} placeholder="상품코드" onChange={(e)=>setSearchProductName(e.target.value)}/>
+        <Input.Text className={formElementClass} placeholder="상품코드" onChange={(e)=>{}}/>
         <input className={formElementClass} placeholder="바코드"/>
         <select className={formElementClass}>
           <option value ="default" >매입가격</option>
@@ -68,8 +68,6 @@ const SearchBox = () => {
           <option>3</option>
         </select>
         <input className={`${formElementClass}`} />
-        <input className={`${formElementClass}`} />
-
       </form>
     );
   };
