@@ -18,7 +18,7 @@ class ShippedProductExpEntity(
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "shipped_product_id")
-    val shippedProductEntity: ShippedProductEntity? = null,
+    val shippedProduct: ShippedProductEntity? = null,
 ) : AuditEntity() {
     fun toDomain(): ShippedProductExp =
         ShippedProductExp(
