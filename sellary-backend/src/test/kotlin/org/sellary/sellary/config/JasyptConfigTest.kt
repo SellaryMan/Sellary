@@ -1,12 +1,10 @@
 package org.sellary.sellary.config
 
-import JasyptConfig
 import org.assertj.core.api.Assertions
 import org.jasypt.encryption.StringEncryptor
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.context.annotation.Import
 import org.springframework.test.context.ActiveProfiles
 
 @SpringBootTest(classes = [JasyptConfig::class])
@@ -14,7 +12,7 @@ import org.springframework.test.context.ActiveProfiles
 internal class JasyptConfigTest {
 
     @Autowired
-    lateinit var stringEncryptor: StringEncryptor;
+    lateinit var stringEncryptor: StringEncryptor
 
     @Test
     fun test() {
