@@ -11,7 +11,7 @@ import org.sellary.sellary.shippedproduct.application.port.out.ShippedProductCom
 import org.springframework.stereotype.Component
 
 @Component
-class ShippedProductCommandPortImpl(
+class ShippedProductCommandJPAPort(
     private val shippedProductJpaRepository: ShippedProductJpaRepository
 ) : ShippedProductCommandPort {
 

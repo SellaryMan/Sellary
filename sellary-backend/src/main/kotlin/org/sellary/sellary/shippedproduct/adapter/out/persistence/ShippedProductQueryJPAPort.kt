@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component
 import java.util.*
 
 @Component
-class ShippedProductQueryPortImpl(
+class ShippedProductQueryJPAPort(
     private val jpaRepository: ShippedProductJpaRepository
 ) : ShippedProductQueryPort {
 
