@@ -6,6 +6,7 @@ data class SellingProduct(
     val code: String,
     val barcode: String? = null,
     val tags: Set<String> = emptySet(),
+    val sellingShippedProductList: List<SellingShippedProduct> = emptyList()
 ) {
     companion object
 }
