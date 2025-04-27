@@ -16,7 +16,7 @@ class JasyptConfig {
     private val password: String? = null
 
     @Bean
-    fun stringEncryptor(): StringEncryptor {
+    fun jasyptStringEncryptor(): StringEncryptor {
         val encryptor = PooledPBEStringEncryptor()
         val config = SimpleStringPBEConfig()
         config.password = password
