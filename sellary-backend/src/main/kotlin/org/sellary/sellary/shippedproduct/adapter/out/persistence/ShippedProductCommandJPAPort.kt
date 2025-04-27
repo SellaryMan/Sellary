@@ -27,7 +27,7 @@ private fun ShippedProduct.toEntity(): ShippedProductEntity {
         code = this.code,
         barcode = this.barcode,
         tagList = this.toTagEntity(),
-        shippedProductExpList = this.shippedProductExp?.let { listOf(it.toEntity()) },
+        shippedProductExpList = this.shippedProductExp.map { it.toEntity() },
         shippedProductCost = this.shippedProductCost?.toEntity()
     )
 }
