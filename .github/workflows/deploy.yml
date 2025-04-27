@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-    workflow_dispatch:
+  workflow_dispatch:
 
 jobs:
   deploy:
@@ -21,7 +21,7 @@ jobs:
           distribution: 'temurin'
 
       - name: Build with Gradle
-        run: ./gradlew clean build
+        run: ./gradlew bootJar --exclude-task test
         working-directory: ./sellary-backend 
 
       - name: Upload JAR to S3
@@ -45,6 +45,7 @@ jobs:
             --document-name "AWS-RunShellScript" \
             --instance-ids "$WAS_INSTANCE_ID" \
             --comment "Deploy sellary.jar from S3" \
-            --parameters 'commands=["aws s3 cp s3://'"$S3_BUCKET"'/sellary.jar /home/service/binary/sellary.jar"]' \
+            --parameters 'commands=["rm -rf /home/service/binary/sellary.jar", "/home/service/sellary.sh start"]' \
             --region "$AWS_REGION" \
+            --timeout-seconds 60 \
             --output text

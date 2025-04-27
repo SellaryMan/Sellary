@@ -1,8 +1,9 @@
 server:
-  port: ${SERVER_PORT}
+  port: { { sever.port } }
 
 spring:
   datasource:
-    url: ${DATASOURCE_URL}
-    username: ${DATASOURCE_USERNAME}
-    password: ${DATASOURCE_PASSWORD}
+    url: ENC(3bgz5xe5vW81ACCVdp6cg0WODOQhopeCEyyCmuFwEo8r3n6F51j9ga7xrpCTJuH8GHBsztmTDwouLqEbV7MU4cPQuFwFQWW5yH8Cdd42W0vIZWh1eLXnSQ==)
+    username: ENC(KLN7Q6kwY8uNisO7yYNvzQ==)
+    password: ENC(UjnM3zCSmollOHcUKq942lStef3PW7Am)
+    driver-class-name: org.postgresql.Driver
