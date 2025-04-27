@@ -2,6 +2,7 @@ package org.sellary.sellary.shippedproduct.adapter.out.persistence.entity
 
 import jakarta.persistence.Entity
 import org.sellary.sellary.core.out.persistence.AuditEntity
+import org.sellary.sellary.shippedproduct.application.domain.ShippedProductCost
 
 @Entity
 class ShippedProductCostEntity(
@@ -12,4 +13,14 @@ class ShippedProductCostEntity(
     val boxSellingPrice: Double? = null,
     val palletSellingPrice: Double? = null
 ) : AuditEntity() {
+    fun toDomain(): ShippedProductCost =
+        ShippedProductCost(
+            id = id,
+            unitPurchasePrice = unitPurchasePrice,
+            boxPurchasePrice = boxPurchasePrice,
+            palletPurchasePrice = palletPurchasePrice,
+            unitSellingPrice = unitSellingPrice,
+            boxSellingPrice = boxSellingPrice,
+            palletSellingPrice = palletSellingPrice,
+        )
 }

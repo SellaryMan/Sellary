@@ -2,6 +2,7 @@ package org.sellary.sellary.shippedproduct.adapter.out.persistence.entity
 
 import jakarta.persistence.*
 import org.sellary.sellary.core.out.persistence.AuditEntity
+import org.sellary.sellary.shippedproduct.application.domain.ShippedProduct
 import org.sellary.sellary.shippedproduct.application.domain.ShippedProductType
 
 @Entity
@@ -14,12 +15,23 @@ class ShippedProductEntity(
     val type: ShippedProductType,
 
     @OneToMany(mappedBy = "shippedProduct", fetch = FetchType.LAZY)
-    val tagList: List<ShippedProductTagEntity>? = null,
+    val tagList: List<ShippedProductTagEntity> = emptyList(),
 
     @OneToMany(mappedBy = "shippedProduct", fetch = FetchType.LAZY)
-    val shippedProductExpList: List<ShippedProductExpEntity>? = null,
+    val shippedProductExpList: List<ShippedProductExpEntity> = emptyList(),
 
     @OneToOne(mappedBy = "shippedProduct", fetch = FetchType.LAZY)
     val shippedProductCost: ShippedProductCostEntity? = null,
 ) : AuditEntity() {
+    fun toDomain() =
+        ShippedProduct(
+            id = id,
+            name = name,
+            code = code,
+            barcode = barcode,
+            type = type,
+            tags = tagList.map { it.tag }.toSet(),
+            shippedProductCost = shippedProductCost?.toDomain(),
+            shippedProductExp = shippedProductExpList.map { it.toDomain() }
+        )
 }
