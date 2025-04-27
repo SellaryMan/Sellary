@@ -28,7 +28,7 @@ private fun ShippedProduct.Companion.fromDto(shippedProductCreateCommand: Shippe
         code = shippedProductCreateCommand.code,
         barcode = shippedProductCreateCommand.barcode,
         tags = shippedProductCreateCommand.keywords ?: emptySet(),
-        shippedProductExp = ShippedProductExp.fromDto(shippedProductCreateCommand),
+        shippedProductExp = listOfNotNull(ShippedProductExp.fromDto(shippedProductCreateCommand)),
         shippedProductCost = ShippedProductCost.fromDto(shippedProductCreateCommand),
     )
 
