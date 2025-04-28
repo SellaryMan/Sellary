@@ -27,17 +27,17 @@ private fun ShippedProduct.toEntity(): ShippedProductEntity {
         code = this.code,
         barcode = this.barcode,
         tagList = this.toTagEntity(),
-        shippedProductExpList = this.shippedProductExp.map { it.toEntity() },
+        shippedProductExpList = this.shippedProductExp.map { it.toEntity() }.toMutableList(),
         shippedProductCost = this.shippedProductCost?.toEntity()
     )
 }
 
-private fun ShippedProduct.toTagEntity(): List<ShippedProductTagEntity> {
+private fun ShippedProduct.toTagEntity(): MutableList<ShippedProductTagEntity> {
     return this.tags.map { tag ->
         ShippedProductTagEntity(
             tag = tag,
         )
-    }
+    }.toMutableList()
 }
 
 private fun ShippedProductExp.toEntity(): ShippedProductExpEntity {
