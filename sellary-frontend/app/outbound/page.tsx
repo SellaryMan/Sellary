@@ -1,4 +1,4 @@
-import {DataTable,Table,TableHead,TableRow,TableBody} from "@/components/search/ProductTable"
+import {DataTable,Table,TableHead,TableRow,TableBody} from "@/components/search/Table"
 import dummyData from "@/components/search/dummy";
 export default function Page() {
 

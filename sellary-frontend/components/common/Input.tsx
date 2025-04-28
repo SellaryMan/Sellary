@@ -19,7 +19,7 @@ type TOption={
 }
 const FlexBox =({children}:{children:React.ReactNode})=>{
   return(
-    <div className="flex w-full h-[1.4rem] py-[6px] px-[4px] rounded-[6px] bg-white shadow-2xl border-1 border-gray-400">
+    <div className="flex w-full h-[1.4rem] py-[6px] px-[4px] rounded-[6px] bg-white border-1 border-gray-400">
       {children}
     </div>
   )
