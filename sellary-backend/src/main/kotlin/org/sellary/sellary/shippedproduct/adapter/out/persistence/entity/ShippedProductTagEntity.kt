@@ -12,6 +12,6 @@ class ShippedProductTagEntity(
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "shipped_product_id", nullable = false)
-    val shippedProduct: ShippedProductEntity? = null,
+    var shippedProduct: ShippedProductEntity? = null,
 ) : AuditEntity() {
 }

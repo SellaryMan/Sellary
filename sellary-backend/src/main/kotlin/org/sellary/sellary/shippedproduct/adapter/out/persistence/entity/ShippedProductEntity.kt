@@ -18,10 +18,10 @@ class ShippedProductEntity(
     val tagList: List<ShippedProductTagEntity> = emptyList(),
 
     @OneToMany(mappedBy = "shippedProduct", fetch = FetchType.LAZY)
-    val shippedProductExpList: List<ShippedProductExpEntity> = emptyList(),
+    var shippedProductExpList: List<ShippedProductExpEntity> = emptyList(),
 
     @OneToOne(mappedBy = "shippedProduct", fetch = FetchType.LAZY)
-    val shippedProductCost: ShippedProductCostEntity? = null,
+    var shippedProductCost: ShippedProductCostEntity? = null,
 ) : AuditEntity() {
     fun toDomain() =
         ShippedProduct(
