@@ -15,13 +15,13 @@ class ShippedProductEntity(
     val type: ShippedProductType,
 
     @OneToMany(mappedBy = "shippedProduct", fetch = FetchType.LAZY)
-    var tagList: List<ShippedProductTagEntity> = emptyList(),
+    var tagList: MutableList<ShippedProductTagEntity> = mutableListOf(),
 
     @OneToMany(mappedBy = "shippedProduct", fetch = FetchType.LAZY)
-    var shippedProductExpList: List<ShippedProductExpEntity> = emptyList(),
+    var shippedProductExpList: MutableList<ShippedProductExpEntity> = mutableListOf(),
 
-    @OneToOne(mappedBy = "shippedProduct", fetch = FetchType.LAZY)
-    var shippedProductCost: ShippedProductCostEntity? = null,
+    @OneToOne(mappedBy = "shippedProduct")
+    var shippedProductCost: ShippedProductCostEntity? = null
 ) : AuditEntity() {
     fun toDomain() =
         ShippedProduct(
