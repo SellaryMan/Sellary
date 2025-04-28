@@ -7,7 +7,8 @@ import org.sellary.sellary.shippedproduct.application.port.`in`.CreateShippedPro
 import org.sellary.sellary.shippedproduct.application.port.`in`.ReadShippedProductUseCase
 import org.springframework.web.bind.annotation.*
 
-@RestController("/shipped-product")
+@RestController
+@RequestMapping("/shipped-product")
 class ShippedProductController(
     private val createUseCase: CreateShippedProductUseCase,
     private val readUseCase: ReadShippedProductUseCase,
