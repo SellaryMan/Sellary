@@ -14,13 +14,13 @@ class ShippedProductEntity(
     @Enumerated(EnumType.STRING)
     val type: ShippedProductType,
 
-    @OneToMany(mappedBy = "shippedProduct", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "shippedProduct", fetch = FetchType.LAZY, cascade = [CascadeType.ALL], orphanRemoval = true)
     var tagList: MutableList<ShippedProductTagEntity> = mutableListOf(),
 
-    @OneToMany(mappedBy = "shippedProduct", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "shippedProduct", fetch = FetchType.LAZY, cascade = [CascadeType.ALL], orphanRemoval = true)
     var shippedProductExpList: MutableList<ShippedProductExpEntity> = mutableListOf(),
 
-    @OneToOne(mappedBy = "shippedProduct")
+    @OneToOne(mappedBy = "shippedProduct", fetch = FetchType.LAZY, cascade = [CascadeType.ALL], orphanRemoval = true)
     var shippedProductCost: ShippedProductCostEntity? = null
 ) : AuditEntity() {
     fun toDomain() =
