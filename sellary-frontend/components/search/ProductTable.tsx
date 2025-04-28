@@ -135,7 +135,7 @@ export const DataTable = forwardRef<
       </TableHead>
       <TableBody className="h-8/9">
         {data.map((item, rowIdx) => (
-          <TableRow key={rowIdx}>
+          <TableRow key={rowIdx} className="border-b border-gray-300">
             <TableCell className="w-10 min-w-10 text-center">
               <div className="flex justify-center items-center">
                 <input 

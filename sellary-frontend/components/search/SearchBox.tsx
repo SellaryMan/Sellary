@@ -11,7 +11,7 @@ const SearchBox = () => {
     // 모든 폼 요소에 적용할 공통 클래스
     const formElementClass = "flex w-full bg-transparent text-[0.6rem] px-1";
     return (
-      <form className="grid grid-cols-4 gap-1 p-2 w-full max-w-full bg-gray-200">
+      <form className="grid grid-cols-4 gap-1 p-2 w-full max-w-full">
         <Input.Select
           className={formElementClass}
           onSelectChange={onChangeComName}
