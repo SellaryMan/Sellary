@@ -4,7 +4,7 @@ const Main = ({ children }: {
 }) => {
     return(
         <>
-            <div className='bg-gray-300'>
+            <div className='bg-gray-200 m-2 rounded-m p-4'>
             {children}
             </div>
         </>

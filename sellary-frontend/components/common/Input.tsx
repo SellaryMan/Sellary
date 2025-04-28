@@ -19,7 +19,7 @@ type TOption={
 }
 const FlexBox =({children}:{children:React.ReactNode})=>{
   return(
-    <div className="flex w-full">
+    <div className="flex w-full h-[1.4rem] py-[6px] px-[4px] rounded-[6px] bg-white shadow-2xl border-1 border-gray-400">
       {children}
     </div>
   )
@@ -38,7 +38,7 @@ const Input = {
           </label>
         )}
         <input
-        className={className}
+          className={`${className} pl-[9px] focus:outline-none`}
           ref={ref}
           {...props}
         />
@@ -60,7 +60,7 @@ const Input = {
           value={selectedValue}>
           {options.map((option) => (
             <option key={option.id} value={option.value}>
-              {option.value}
+              {option.id}
             </option>
           ))}
         </select>

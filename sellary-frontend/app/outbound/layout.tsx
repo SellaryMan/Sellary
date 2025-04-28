@@ -6,11 +6,11 @@ export default function Layout({
 }>) {
   return (
     <>
-    <div className="h-full">
+    <div className="h-full w-full">
       <div className="h-1/9">
         <SearchBox/>
       </div>
-      <div className="relative h-8/9 overflow-y-auto">
+      <div className="relative h-8/9 w-full overflow-y-auto">
         {children}
       </div>
     </div>
