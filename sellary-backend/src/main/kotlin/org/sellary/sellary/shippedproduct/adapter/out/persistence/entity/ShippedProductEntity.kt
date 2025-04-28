@@ -15,7 +15,7 @@ class ShippedProductEntity(
     val type: ShippedProductType,
 
     @OneToMany(mappedBy = "shippedProduct", fetch = FetchType.LAZY)
-    val tagList: List<ShippedProductTagEntity> = emptyList(),
+    var tagList: List<ShippedProductTagEntity> = emptyList(),
 
     @OneToMany(mappedBy = "shippedProduct", fetch = FetchType.LAZY)
     var shippedProductExpList: List<ShippedProductExpEntity> = emptyList(),
