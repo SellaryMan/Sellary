@@ -14,4 +14,7 @@ class SellingProductTagEntity(
     @JoinColumn(name = "selling_product_id", nullable = false)
     val sellingProduct: SellingProductEntity? = null,
 ) : AuditEntity() {
+    fun toDomain() : String {
+        return tag
+    }
 }
