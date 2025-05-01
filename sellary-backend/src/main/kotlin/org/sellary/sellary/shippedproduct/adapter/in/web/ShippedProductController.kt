@@ -18,7 +18,6 @@ class ShippedProductController(
         createUseCase.create(createShippedProductCommand)
 
     @GetMapping
-
     fun getShippedProduct(@ModelAttribute query: ShippedProductQuery): List<ShippedProductDto> =
         readUseCase.readShippedProduct(query)
 }

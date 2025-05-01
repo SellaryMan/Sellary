@@ -9,7 +9,7 @@ import java.time.LocalDateTime
 data class ShippedProductCreateCommand(
     val name: String,
     val quantity: Long,
-    val type: String,
+    val type: ShippedProductType,
     val code: String,
     val barcode: String? = null,
     val keywords: Set<String>? = null,
@@ -29,7 +29,7 @@ data class ShippedProductCreateCommand(
 ) {
     fun toDomain() = ShippedProduct(
         name = this.name,
-        type = ShippedProductType.from(this.type),
+        type = this.type,
         code = this.code,
         barcode = this.barcode,
         tags = this.keywords ?: emptySet(),
