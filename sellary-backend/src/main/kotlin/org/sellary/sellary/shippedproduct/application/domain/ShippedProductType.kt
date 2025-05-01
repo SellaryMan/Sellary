@@ -2,7 +2,7 @@ package org.sellary.sellary.shippedproduct.application.domain
 
 enum class ShippedProductType(val type: String) {
     INGREDIENT("ingredient"),
-    SUB_INGREDIENT("sub_ingredient"),
+    SUB_INGREDIENT("sub-ingredient"),
     PRODUCT("product");
 
     companion object {
