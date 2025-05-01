@@ -8,6 +8,4 @@ data class ShippedProductCost(
     val unitSellingPrice: Double? = null,
     val boxSellingPrice: Double? = null,
     val palletSellingPrice: Double? = null
-) {
-    companion object
-}
+)
