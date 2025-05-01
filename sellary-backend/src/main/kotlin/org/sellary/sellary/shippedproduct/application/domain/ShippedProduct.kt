@@ -9,6 +9,4 @@ data class ShippedProduct(
     val tags: Set<String> = emptySet(),
     val shippedProductExp: List<ShippedProductExp> = emptyList(),
     val shippedProductCost: ShippedProductCost? = null,
-) {
-    companion object
-}
+)

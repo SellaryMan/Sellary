@@ -29,4 +29,15 @@ class ShippedProductExpEntity(
             lowStockThresholdDay = lowStockThresholdDay,
             noShippingThresholdDay = noShippingThresholdDay,
         )
+
+    companion object {
+        fun fromDomain(domain: ShippedProductExp): ShippedProductExpEntity =
+            ShippedProductExpEntity(
+                expDate = domain.expDate,
+                quantity = domain.quantity,
+                manufactureDate = domain.manufactureDate,
+                lowStockThresholdDay = domain.lowStockThresholdDay,
+                noShippingThresholdDay = domain.noShippingThresholdDay
+            )
+    }
 }

@@ -30,4 +30,16 @@ class ShippedProductCostEntity(
             boxSellingPrice = boxSellingPrice,
             palletSellingPrice = palletSellingPrice,
         )
+
+    companion object {
+        fun fromDomain(domain: ShippedProductCost): ShippedProductCostEntity =
+            ShippedProductCostEntity(
+                unitPurchasePrice = domain.unitPurchasePrice,
+                boxPurchasePrice = domain.boxPurchasePrice,
+                palletPurchasePrice = domain.palletPurchasePrice,
+                unitSellingPrice = domain.unitSellingPrice,
+                boxSellingPrice = domain.boxSellingPrice,
+                palletSellingPrice = domain.palletSellingPrice
+            )
+    }
 }

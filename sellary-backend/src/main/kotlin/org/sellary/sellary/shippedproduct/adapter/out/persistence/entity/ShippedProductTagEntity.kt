@@ -14,4 +14,13 @@ class ShippedProductTagEntity(
     @JoinColumn(name = "shipped_product_id", nullable = false)
     var shippedProduct: ShippedProductEntity? = null,
 ) : AuditEntity() {
+
+    companion object {
+        fun fromDomain(tags: List<String>): MutableList<ShippedProductTagEntity> =
+            tags.map { tag ->
+                ShippedProductTagEntity(
+                    tag = tag,
+                )
+            }.toMutableList()
+    }
 }

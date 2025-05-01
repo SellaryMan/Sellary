@@ -9,6 +9,4 @@ data class ShippedProductExp(
     val manufactureDate: LocalDateTime? = null,
     val lowStockThresholdDay: Long? = null,
     val noShippingThresholdDay: Long? = null
-) {
-    companion object
-}
+)

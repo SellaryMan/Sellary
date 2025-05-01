@@ -34,4 +34,24 @@ class ShippedProductEntity(
             shippedProductCost = shippedProductCost?.toDomain(),
             shippedProductExp = shippedProductExpList.map { it.toDomain() }
         )
+
+    companion object {
+        fun fromDomain(domain: ShippedProduct): ShippedProductEntity {
+
+            val entity = ShippedProductEntity(
+                name = domain.name,
+                type = domain.type,
+                code = domain.code,
+                barcode = domain.barcode,
+                tagList = ShippedProductTagEntity.fromDomain(domain.tags.toList()),
+                shippedProductExpList = domain.shippedProductExp.map { ShippedProductExpEntity.fromDomain(it) }
+                    .toMutableList(),
+                shippedProductCost = domain.shippedProductCost?.let { ShippedProductCostEntity.fromDomain(it) }
+            )
+            entity.tagList.forEach { it.shippedProduct = entity }
+            entity.shippedProductExpList.forEach { it.shippedProduct = entity }
+            entity.shippedProductCost?.shippedProduct = entity
+            return entity
+        }
+    }
 }
