@@ -5,11 +5,18 @@ import java.util.Collections.emptySet
 
 data class SellingProduct(
     val id: Long? = null,
-    val name: String,
-    val code: String,
-    val barcode: String? = null,
-    val tags: Set<String> = emptySet(),
-    val sellingShippedProductList: List<SellingShippedProduct> = emptyList()
+    var name: String,
+    var code: String,
+    var barcode: String? = null,
+    var tags: Set<String> = emptySet(),
+    var sellingShippedProductList: List<SellingShippedProduct> = emptyList()
 ) {
+    fun update(sellingProduct: SellingProduct) {
+        this.name = sellingProduct.name
+        this.code = sellingProduct.code
+        this.barcode = sellingProduct.barcode ?: this.barcode
+        this.tags = sellingProduct.tags
+    }
+
     companion object
 }
