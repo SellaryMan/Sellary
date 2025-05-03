@@ -27,12 +27,13 @@ repositories {
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
 
     // SpringDoc OpenAPI (Swagger) dependencies
-    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.4.0")
-    implementation("org.springdoc:springdoc-openapi-starter-common:2.4.0")
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.6")
+    implementation("org.springdoc:springdoc-openapi-starter-common:2.8.6")
 
     // persistence dependencies
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
@@ -41,6 +42,7 @@ dependencies {
     // logger
     implementation("io.github.oshai:kotlin-logging-jvm:7.0.3")
 
+    // test
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
     testImplementation("org.mockito.kotlin:mockito-kotlin:5.4.0")
