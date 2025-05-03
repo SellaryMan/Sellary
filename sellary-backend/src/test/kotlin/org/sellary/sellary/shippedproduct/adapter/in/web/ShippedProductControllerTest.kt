@@ -52,7 +52,7 @@ class ShippedProductControllerTest {
 
         mockMvc = MockMvcBuilders
             .standaloneSetup(controller)
-            .setControllerAdvice(ExceptionControllerAdvice::class)
+            .setControllerAdvice(ExceptionControllerAdvice())
             .setValidator(validator)
             .build()
 
@@ -404,7 +404,8 @@ class ShippedProductControllerTest {
         @DisplayName("읽기 UseCase에서 예외가 발생하면 적절히 처리한다")
         fun getShippedProduct_exceptionInUseCase_returns500() {
             // given
-            whenever(readUseCase.readShippedProduct(any())).thenThrow(EntityNotFoundException("Database error"))
+            whenever(readUseCase.readShippedProduct(any()))
+                .thenThrow(EntityNotFoundException("Database error"))
 
             // when & then
             mockMvc.perform(

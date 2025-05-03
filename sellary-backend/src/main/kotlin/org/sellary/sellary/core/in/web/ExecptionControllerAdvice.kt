@@ -17,8 +17,9 @@ class ExceptionControllerAdvice {
     private val log = KotlinLogging.logger {}
 
     @ExceptionHandler(MethodArgumentNotValidException::class)
-    fun handleValidationErrors(ex: MethodArgumentNotValidException): ResponseEntity<ErrorResponse> {
-        val errors = ex.bindingResult.fieldErrors.stream()
+    fun handleValidationErrors(e: MethodArgumentNotValidException): ResponseEntity<ErrorResponse> {
+        log.warn { "validation exception occurred: ${e.message}" }
+        val errors = e.bindingResult.fieldErrors.stream()
             .map { error: FieldError -> error.field + ": " + error.defaultMessage }
             .collect(Collectors.toList())
 
