@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.media.ExampleObject
 import io.swagger.v3.oas.annotations.media.Schema
 import io.swagger.v3.oas.annotations.parameters.RequestBody
 import io.swagger.v3.oas.annotations.tags.Tag
+import jakarta.validation.Valid
 import org.sellary.sellary.shippedproduct.application.port.dto.ShippedProductCreateCommand
 import org.sellary.sellary.shippedproduct.application.port.dto.ShippedProductDto
 import org.sellary.sellary.shippedproduct.application.port.dto.ShippedProductQuery
@@ -73,7 +74,10 @@ class ShippedProductController(
             schema = Schema(implementation = ShippedProductCreateCommand::class)
         )]
     )
-    fun createShippedProduct(@org.springframework.web.bind.annotation.RequestBody createShippedProductCommand: ShippedProductCreateCommand) =
+    fun createShippedProduct(
+        @org.springframework.web.bind.annotation.RequestBody @Valid
+        createShippedProductCommand: ShippedProductCreateCommand
+    ) =
         createUseCase.create(createShippedProductCommand)
 
     @GetMapping

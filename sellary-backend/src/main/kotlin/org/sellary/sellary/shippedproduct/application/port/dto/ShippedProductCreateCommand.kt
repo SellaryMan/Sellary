@@ -1,5 +1,6 @@
 package org.sellary.sellary.shippedproduct.application.port.dto
 
+import jakarta.validation.constraints.NotBlank
 import org.sellary.sellary.shippedproduct.application.domain.ShippedProduct
 import org.sellary.sellary.shippedproduct.application.domain.ShippedProductCost
 import org.sellary.sellary.shippedproduct.application.domain.ShippedProductExp
@@ -7,9 +8,11 @@ import org.sellary.sellary.shippedproduct.application.domain.ShippedProductType
 import java.time.LocalDateTime
 
 data class ShippedProductCreateCommand(
+    @field:NotBlank
     val name: String,
     val quantity: Long,
     val type: ShippedProductType,
+    @field:NotBlank
     val code: String,
     val barcode: String? = null,
     val keywords: Set<String>? = null,

@@ -4,13 +4,30 @@ import io.github.oshai.kotlinlogging.KotlinLogging
 import jakarta.persistence.EntityNotFoundException
 import org.springframework.dao.EmptyResultDataAccessException
 import org.springframework.http.ResponseEntity
+import org.springframework.validation.FieldError
+import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
+import java.util.stream.Collectors
+
 
 @RestControllerAdvice
 class ExceptionControllerAdvice {
 
     private val log = KotlinLogging.logger {}
+
+    @ExceptionHandler(MethodArgumentNotValidException::class)
+    fun handleValidationErrors(ex: MethodArgumentNotValidException): ResponseEntity<ErrorResponse> {
+        val errors = ex.bindingResult.fieldErrors.stream()
+            .map { error: FieldError -> error.field + ": " + error.defaultMessage }
+            .collect(Collectors.toList())
+
+        val errorResponse = ErrorResponse(
+            message = "유효성 검증 오류가 발생했습니다. 실패목록: $errors",
+        )
+
+        return ResponseEntity.badRequest().body(errorResponse)
+    }
 
     @ExceptionHandler(EmptyResultDataAccessException::class)
     fun handleEmptyResultDataAccessException(e: EmptyResultDataAccessException): ResponseEntity<ErrorResponse> =
