@@ -5,6 +5,7 @@ import org.sellary.sellary.shippedproduct.application.domain.ShippedProduct
 import org.sellary.sellary.shippedproduct.application.domain.ShippedProductType
 import org.sellary.sellary.shippedproduct.application.port.out.ShippedProductQueryPort
 import org.springframework.stereotype.Component
+import org.springframework.transaction.annotation.Transactional
 import java.util.*
 
 @Component
@@ -12,17 +13,22 @@ class ShippedProductQueryJPAPort(
     private val jpaRepository: ShippedProductJpaRepository
 ) : ShippedProductQueryPort {
 
+    @Transactional(readOnly = true)
     override fun findById(id: Long): ShippedProduct =
         jpaRepository.findById(id).unwrapOrThrow { "Product with id $id not found" }.toDomain()
 
+    @Transactional(readOnly = true)
     override fun findByName(name: String): List<ShippedProduct> = jpaRepository.findByName(name).map { it.toDomain() }
 
+    @Transactional(readOnly = true)
     override fun findByType(type: ShippedProductType): List<ShippedProduct> =
         jpaRepository.findByType(type).map { it.toDomain() }
 
+    @Transactional(readOnly = true)
     override fun findByCode(code: String): ShippedProduct =
         jpaRepository.findByCode(code).unwrapOrThrow { "Product with code: $code not found" }.toDomain()
 
+    @Transactional(readOnly = true)
     override fun findAll(): List<ShippedProduct> = jpaRepository.findAll().map { it.toDomain() }
 
     private fun <T> Optional<T>.unwrapOrThrow(messageProvider: () -> String): T =

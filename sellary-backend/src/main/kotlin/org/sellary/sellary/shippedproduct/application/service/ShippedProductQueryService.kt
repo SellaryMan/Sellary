@@ -7,11 +7,14 @@ import org.sellary.sellary.shippedproduct.application.port.dto.ShippedProductQue
 import org.sellary.sellary.shippedproduct.application.port.`in`.ReadShippedProductUseCase
 import org.sellary.sellary.shippedproduct.application.port.out.ShippedProductQueryPort
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
 class ShippedProductQueryService(
     private val shippedProductQueryPort: ShippedProductQueryPort
 ) : ReadShippedProductUseCase {
+
+    @Transactional(readOnly = true)
     override fun readShippedProduct(query: ShippedProductQuery): List<ShippedProductDto> =
         when (query.queryType) {
             ID -> query.id.requireNotNull("id")
