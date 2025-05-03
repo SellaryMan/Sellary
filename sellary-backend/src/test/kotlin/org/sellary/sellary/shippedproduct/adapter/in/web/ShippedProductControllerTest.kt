@@ -23,6 +23,7 @@ import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
 import org.springframework.test.web.servlet.setup.MockMvcBuilders
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean
 import java.time.LocalDateTime
 
 class ShippedProductControllerTest {
@@ -30,6 +31,7 @@ class ShippedProductControllerTest {
     private lateinit var createUseCase: CreateShippedProductUseCase
     private lateinit var readUseCase: ReadShippedProductUseCase
     private lateinit var deleteUseCase: DeleteShippedProductUseCase
+
     private lateinit var objectMapper: ObjectMapper
     private lateinit var controller: ShippedProductController
     private lateinit var mockMvc: MockMvc
@@ -39,6 +41,8 @@ class ShippedProductControllerTest {
         createUseCase = mock()
         readUseCase = mock()
         deleteUseCase = mock()
+        val validator = LocalValidatorFactoryBean()
+        validator.afterPropertiesSet()
 
         controller = ShippedProductController(
             createUseCase = createUseCase,
@@ -48,7 +52,8 @@ class ShippedProductControllerTest {
 
         mockMvc = MockMvcBuilders
             .standaloneSetup(controller)
-            .setControllerAdvice(ExceptionControllerAdvice())
+            .setControllerAdvice(ExceptionControllerAdvice::class)
+            .setValidator(validator)
             .build()
 
         objectMapper = ObjectMapper()
@@ -137,6 +142,46 @@ class ShippedProductControllerTest {
                 .andExpect(status().isBadRequest)
 
             verify(createUseCase, never()).create(any())
+        }
+
+        @Test
+        @DisplayName("이름 필드가 비어있는 경우 예외가 발생한다")
+        fun createShippedProduct_blankName_returns400() {
+            // given
+            val command = ShippedProductCreateCommand(
+                name = "",
+                quantity = 100,
+                type = ShippedProductType.PRODUCT,
+                code = "PD-LIKE"
+            )
+
+            // when & then
+            mockMvc.perform(
+                post("/shipped-product")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsString(command))
+            )
+                .andExpect(status().isBadRequest)
+        }
+
+        @Test
+        @DisplayName("코드 필드가 비어있는 경우 예외가 발생한다")
+        fun createShippedProduct_blankCode_returns400() {
+            // given
+            val command = ShippedProductCreateCommand(
+                name = "고추",
+                quantity = 100,
+                type = ShippedProductType.PRODUCT,
+                code = ""
+            )
+
+            // when & then
+            mockMvc.perform(
+                post("/shipped-product")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsString(command))
+            )
+                .andExpect(status().isBadRequest)
         }
 
         @Test
