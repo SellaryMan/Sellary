@@ -11,7 +11,9 @@ import org.junit.jupiter.api.Test
 import org.mockito.kotlin.*
 import org.sellary.sellary.core.`in`.web.ExceptionControllerAdvice
 import org.sellary.sellary.shippedproduct.application.domain.ShippedProductType
-import org.sellary.sellary.shippedproduct.application.port.dto.*
+import org.sellary.sellary.shippedproduct.application.port.dto.ShippedProductCreateCommand
+import org.sellary.sellary.shippedproduct.application.port.dto.ShippedProductDto
+import org.sellary.sellary.shippedproduct.application.port.dto.ShippedProductExpDto
 import org.sellary.sellary.shippedproduct.application.port.`in`.CreateShippedProductUseCase
 import org.sellary.sellary.shippedproduct.application.port.`in`.DeleteShippedProductUseCase
 import org.sellary.sellary.shippedproduct.application.port.`in`.ReadShippedProductUseCase
@@ -169,15 +171,6 @@ class ShippedProductControllerTest {
         @Test
         @DisplayName("ID로 상품을 조회할 수 있다")
         fun getShippedProduct_byId_returnsMatchingProducts() {
-            // given
-            val query = ShippedProductQuery(
-                id = 1L,
-                name = null,
-                type = null,
-                code = null,
-                queryType = ShippedProductQueryType.ID
-            )
-
             val expectedProducts = listOf(
                 ShippedProductDto(
                     id = 1L,
@@ -219,14 +212,6 @@ class ShippedProductControllerTest {
         @DisplayName("이름으로 상품을 조회할 수 있다")
         fun getShippedProduct_byName_returnsMatchingProducts() {
             // given
-            val query = ShippedProductQuery(
-                id = null,
-                name = "고추장",
-                type = null,
-                code = null,
-                queryType = ShippedProductQueryType.NAME
-            )
-
             val expectedProducts = listOf(
                 ShippedProductDto(
                     id = 1L,
@@ -263,15 +248,6 @@ class ShippedProductControllerTest {
         @Test
         @DisplayName("타입으로 상품을 조회할 수 있다")
         fun getShippedProduct_byType_returnsMatchingProducts() {
-            // given
-            val query = ShippedProductQuery(
-                id = null,
-                name = null,
-                type = ShippedProductType.PRODUCT,
-                code = null,
-                queryType = ShippedProductQueryType.TYPE
-            )
-
             val expectedProducts = listOf(
                 ShippedProductDto(
                     id = 1L,
@@ -308,14 +284,6 @@ class ShippedProductControllerTest {
         @DisplayName("코드로 상품을 조회할 수 있다")
         fun getShippedProduct_byCode_returnsMatchingProducts() {
             // given
-            val query = ShippedProductQuery(
-                id = null,
-                name = null,
-                type = null,
-                code = "PRD-001",
-                queryType = ShippedProductQueryType.CODE
-            )
-
             val expectedProducts = listOf(
                 ShippedProductDto(
                     id = 1L,
