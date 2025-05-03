@@ -1,46 +1,69 @@
 package org.sellary.sellary.shippedproduct.application.port.dto
 
+import io.swagger.v3.oas.annotations.Parameter
+import io.swagger.v3.oas.annotations.enums.ParameterIn
 import io.swagger.v3.oas.annotations.media.Schema
 import org.sellary.sellary.shippedproduct.application.domain.ShippedProductType
 
 data class ShippedProductQuery(
-    @Schema(description = "id", example = "1")
+    @field:Parameter(
+        name = "id",
+        description = "출고 상품 ID",
+        example = "1",
+    )
     val id: Long?,
 
-    @Schema(description = "출고상품 명", example = "고추장")
+    @field:Parameter(
+        name = "name",
+        description = "출고 상품 명",
+        example = "고추장",
+        `in` = ParameterIn.QUERY,
+        schema = Schema(description = "출고 상품 명", example = "고추장", type = "string")
+    )
     val name: String?,
 
-    @Schema(
-        description = "출고 상품 타입 (재료 / 부재료 / 출고 상품)",
-        example = "ingredient",
-        allowableValues = ["ingredient", "sub-ingredient", "product"]
+    @field:Parameter(
+        name = "type",
+        description = "출고 상품 타입",
+        example = "PRODUCT",
+        `in` = ParameterIn.QUERY,
+        schema = Schema(allowableValues = ["INGREDIENT", "SUB_INGREDIENT", "PRODUCT"])
     )
     val type: ShippedProductType?,
 
-    @Schema(description = "출고상품 코드", example = "PRD-001")
+    @field:Parameter(
+        name = "code",
+        `in` = ParameterIn.QUERY,
+        schema = Schema(description = "출고 상품 코드", example = "PRD-001", type = "string")
+    )
     val code: String?,
 
-    @Schema(
-        description = "검색 조건",
+    @field:Parameter(
+        name = "queryType",
+        description = "검색 조건 타입",
         example = "NAME",
-        allowableValues = ["ID", "NAME", "TYPE", "CODE", "MULTI_CONDITION"]
+        `in` = ParameterIn.QUERY,
+        schema = Schema(
+            example = "NAME",
+            allowableValues = ["ID", "NAME", "TYPE", "CODE", "MULTI_CONDITION"]
+        )
     )
-    val queryType: ShippedProductQueryType?,
+    val queryType: ShippedProductQueryType?
 )
 
 enum class ShippedProductQueryType {
-    @Schema(description = "ID 로 검색")
+    @field:Parameter(description = "ID 로 검색")
     ID,
 
-    @Schema(description = "name 으로 검색")
+    @field:Parameter(description = "name 으로 검색")
     NAME,
 
-    @Schema(description = "type 으로 검색")
+    @field:Parameter(description = "type 으로 검색")
     TYPE,
 
-    @Schema(description = "code 로 검색")
+    @field:Parameter(description = "code 로 검색")
     CODE,
 
-    @Schema(description = "(미구현) 여러 조건으로 검색")
+    @field:Parameter(description = "(미구현) 여러 조건으로 검색")
     MULTI_CONDITION
 }
