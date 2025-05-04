@@ -34,7 +34,7 @@ data class ShippedProductDto(
 
 data class ShippedProductExpDto(
     val id: Long,
-    val expDate: LocalDateTime,
+    val expDate: LocalDateTime? = null,
     val quantity: Long,
     val manufactureDate: LocalDateTime? = null,
     val lowStockThresholdDay: Long? = null,

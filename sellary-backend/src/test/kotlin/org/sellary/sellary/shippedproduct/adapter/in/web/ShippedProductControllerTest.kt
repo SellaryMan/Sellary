@@ -71,13 +71,12 @@ class ShippedProductControllerTest {
             // given
             val command = ShippedProductCreateCommand(
                 name = "고추장",
-                quantity = 100,
                 type = ShippedProductType.PRODUCT,
                 code = "PRD-001",
                 barcode = "1234567890123",
                 keywords = setOf("매운맛", "장류"),
                 expDate = LocalDateTime.of(2025, 12, 31, 0, 0),
-                expQuantity = 100,
+                quantity = 100,
                 manufactureDate = LocalDateTime.of(2025, 1, 1, 0, 0),
                 lowStockThresholdDay = 30,
                 noShippingThresholdDay = 15,

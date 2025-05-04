@@ -10,15 +10,14 @@ import java.time.LocalDateTime
 data class ShippedProductCreateCommand(
     @field:NotBlank
     val name: String,
-    val quantity: Long,
     val type: ShippedProductType,
     @field:NotBlank
     val code: String,
     val barcode: String? = null,
     val keywords: Set<String>? = null,
 
+    val quantity: Long,
     val expDate: LocalDateTime? = null,
-    val expQuantity: Long? = null,
     val manufactureDate: LocalDateTime? = null,
     val lowStockThresholdDay: Long? = null,
     val noShippingThresholdDay: Long? = null,
@@ -40,16 +39,15 @@ data class ShippedProductCreateCommand(
         shippedProductCost = toCostDomain(this),
     )
 
-    private fun toExpDomain(shippedProductExpCreateCommand: ShippedProductCreateCommand): ShippedProductExp? =
-        shippedProductExpCreateCommand.expDate?.let {
-            ShippedProductExp(
-                expDate = shippedProductExpCreateCommand.expDate,
-                quantity = shippedProductExpCreateCommand.quantity,
-                manufactureDate = shippedProductExpCreateCommand.manufactureDate,
-                lowStockThresholdDay = shippedProductExpCreateCommand.lowStockThresholdDay,
-                noShippingThresholdDay = shippedProductExpCreateCommand.noShippingThresholdDay,
-            )
-        }
+    private fun toExpDomain(shippedProductExpCreateCommand: ShippedProductCreateCommand): ShippedProductExp =
+        ShippedProductExp(
+            expDate = shippedProductExpCreateCommand.expDate,
+            quantity = shippedProductExpCreateCommand.quantity,
+            manufactureDate = shippedProductExpCreateCommand.manufactureDate,
+            lowStockThresholdDay = shippedProductExpCreateCommand.lowStockThresholdDay,
+            noShippingThresholdDay = shippedProductExpCreateCommand.noShippingThresholdDay,
+        )
+
 
     private fun toCostDomain(shippedProductCostCreateCommand: ShippedProductCreateCommand): ShippedProductCost? {
         if (shippedProductCostCreateCommand.unitPurchasePrice == null &&

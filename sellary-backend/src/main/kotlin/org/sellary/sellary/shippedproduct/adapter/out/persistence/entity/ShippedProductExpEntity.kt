@@ -10,7 +10,7 @@ import java.time.LocalDateTime
 
 @Entity
 class ShippedProductExpEntity(
-    val expDate: LocalDateTime,
+    val expDate: LocalDateTime? = null,
     val quantity: Long,
     val manufactureDate: LocalDateTime? = null,
     val lowStockThresholdDay: Long? = null,
