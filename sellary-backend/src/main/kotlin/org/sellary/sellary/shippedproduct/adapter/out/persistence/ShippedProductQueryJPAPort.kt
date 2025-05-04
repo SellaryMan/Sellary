@@ -30,7 +30,12 @@ class ShippedProductQueryJPAPort(
         jpaRepository.findByCodeFetchAll(code).unwrapOrThrow { "Product with code: $code not found" }.toDomain()
 
     @Transactional(readOnly = true)
-    override fun findAll(): List<ShippedProduct> = jpaRepository.findAll().map { it.toDomain() }
+    override fun findAll(): List<ShippedProduct> =
+        jpaRepository.findAll().map { it.toDomain() }
+
+    @Transactional(readOnly = true)
+    override fun existsByCode(code: String): Boolean =
+        jpaRepository.existsByCode(code)
 
     private fun <T> Optional<T>.unwrapOrThrow(messageProvider: () -> String): T =
         orElseThrow { EntityNotFoundException(messageProvider()) }

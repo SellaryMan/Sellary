@@ -40,4 +40,6 @@ interface ShippedProductJpaRepository : JpaRepository<ShippedProductEntity, Long
        """
     )
     fun findByCodeFetchAll(code: String): ShippedProductEntity?
+
+    fun existsByCode(code: String): Boolean
 }

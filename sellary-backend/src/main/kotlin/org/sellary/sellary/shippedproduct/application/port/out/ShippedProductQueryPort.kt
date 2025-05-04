@@ -9,4 +9,5 @@ interface ShippedProductQueryPort {
     fun findByType(type: ShippedProductType): List<ShippedProduct>
     fun findByCode(code: String): ShippedProduct
     fun findAll(): List<ShippedProduct>
+    fun existsByCode(code: String): Boolean
 }
