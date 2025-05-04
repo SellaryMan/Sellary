@@ -1,9 +1,6 @@
 package org.sellary.sellary.shippedproduct.application.port.`in`
 
-import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.DisplayName
-import org.junit.jupiter.api.Nested
-import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.*
 import org.mockito.kotlin.*
 import org.sellary.sellary.shippedproduct.application.domain.ShippedProduct
 import org.sellary.sellary.shippedproduct.application.domain.ShippedProductExp
@@ -34,7 +31,8 @@ class ShippedProductUseCaseTest {
         mockQueryPort = mock()
 
         val commandService = ShippedProductCommandService(
-            mockCommandPort
+            shippedProductCommandPort = mockCommandPort,
+            shippedProductQueryPort = mockQueryPort
         )
         createShippedProductUseCase = commandService
         deleteUseCase = commandService
@@ -62,9 +60,12 @@ class ShippedProductUseCaseTest {
         @Test
         @DisplayName("dto 가 domain 으로 변환되어 Port 를 통해 저장되어야 한다")
         fun `Create shipped product should call command port with correct domain object`() {
+            // given
+            whenever(mockQueryPort.existsByCode(any()))
+                .thenReturn(false)
+
             // when
             createShippedProductUseCase.create(testCommand)
-
             // then
             val productCaptor = argumentCaptor<ShippedProduct>()
             verify(mockCommandPort, times(1)).create(productCaptor.capture())
@@ -76,6 +77,19 @@ class ShippedProductUseCaseTest {
             assertEquals(testCommand.barcode, capturedProduct.barcode)
             assertEquals(testCommand.quantity, capturedProduct.shippedProductExp.first().quantity)
             assertEquals(testCommand.expDate, capturedProduct.shippedProductExp.first().expDate)
+        }
+
+        @Test
+        @DisplayName("이미 존재하는 code 가 있다면, 예외를 뱉어야 한다")
+        fun `don't allow duplicate code`() {
+            // given
+            whenever(mockQueryPort.existsByCode(any()))
+                .thenReturn(true)
+
+            // when & then
+            assertThrows<IllegalArgumentException> {
+                createShippedProductUseCase.create(testCommand)
+            }
         }
     }
 
