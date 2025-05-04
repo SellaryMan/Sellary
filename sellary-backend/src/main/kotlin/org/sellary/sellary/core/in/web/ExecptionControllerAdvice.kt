@@ -30,6 +30,14 @@ class ExceptionControllerAdvice {
         return ResponseEntity.badRequest().body(errorResponse)
     }
 
+    @ExceptionHandler(IllegalArgumentException::class)
+    fun handleIllegalArgumentException(e: IllegalArgumentException): ResponseEntity<ErrorResponse> {
+        log.warn { "bad request: cause - ${e.cause}, message - ${e.message}" }
+        return ResponseEntity
+            .badRequest()
+            .body(ErrorResponse(message = e.message ?: "잘못된 접근입니다"))
+    }
+
     @ExceptionHandler(EmptyResultDataAccessException::class)
     fun handleEmptyResultDataAccessException(e: EmptyResultDataAccessException): ResponseEntity<ErrorResponse> =
         notFoundResponse(e)
