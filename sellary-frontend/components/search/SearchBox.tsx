@@ -4,13 +4,10 @@ import { useState } from "react"
 import TextSearch from "./TextSearch"
 
 const SearchBox = () => {
-  const [textSearchInput, setTextSearchInput]= useState("")
+  
   return(
     <>
-      <TextSearch
-        inputValue={textSearchInput}
-        setInputValue={setTextSearchInput}
-      />
+      <TextSearch/>
     </>
   )
 }
