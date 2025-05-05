@@ -1,5 +1,6 @@
 'use client'
 import { Input } from "@/components/ui/input"
+import { Button } from "../ui/button"
 import { useState } from "react"
 import { Search, X } from "lucide-react"
 
@@ -20,7 +21,8 @@ const TextSearch = ({ inputValue, setInputValue }: TextSearchProps) => {
   }
 
   return (
-    <div className="flex w-64">
+    <div className="flex gap-1">
+    <div className="relative flex w-72 gap-2">
       {isFocused && (
         <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">
           <Search size={16} />
@@ -32,7 +34,7 @@ const TextSearch = ({ inputValue, setInputValue }: TextSearchProps) => {
         value={inputValue}
         onChange={handleInputChange}
         placeholder="이름으로 검색" 
-        className={`rounded-full px-2 w-full ${isFocused ? 'pl-8 pr-8' : 'pl-4'}`}
+        className={`px-2 w-full ${isFocused ? 'pl-8 pr-8' : 'pl-4'}`}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
       />
@@ -46,6 +48,10 @@ const TextSearch = ({ inputValue, setInputValue }: TextSearchProps) => {
           <X size={16} />
         </div>
       )}
+    </div>
+          <Button>
+          검색
+        </Button>
     </div>
   )
 }
