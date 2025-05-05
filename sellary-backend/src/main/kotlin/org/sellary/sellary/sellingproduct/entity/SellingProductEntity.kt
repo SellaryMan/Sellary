@@ -16,7 +16,7 @@ class SellingProductEntity(
     val barcode: String? = null,
 
     @OneToMany(mappedBy = "sellingProduct", fetch = FetchType.LAZY)
-    val tags: Set<SellingProductTagEntity> = emptySet(),
+    var tags: Set<SellingProductTagEntity> = emptySet(),
     @OneToMany(mappedBy = "sellingProduct", fetch = FetchType.LAZY)
     val sellingShippedProductList: List<SellingShippedProductEntity> = emptyList()
 ) : AuditEntity() {
@@ -36,11 +36,15 @@ class SellingProductEntity(
     }
     companion object {
         fun from(sellingProduct: SellingProduct): SellingProductEntity {
-            return SellingProductEntity(
+            val sellingProductEntity = SellingProductEntity(
                 name = sellingProduct.name,
                 code = sellingProduct.code,
                 barcode = sellingProduct.barcode
             )
+            sellingProductEntity.tags = sellingProduct.tags.stream()
+                .map { t -> SellingProductTagEntity.from(t, sellingProductEntity) }
+                .collect(Collectors.toSet())
+            return sellingProductEntity
         }
     }
 }

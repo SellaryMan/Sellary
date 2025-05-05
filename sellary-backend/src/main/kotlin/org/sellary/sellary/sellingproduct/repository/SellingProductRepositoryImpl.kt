@@ -17,6 +17,7 @@ class SellingProductRepositoryImpl(
             .toList()
     }
 
+    @Transactional
     override fun register(sellingProduct: SellingProduct) {
         sellingProductJpaRepository.save(SellingProductEntity.from(sellingProduct))
     }
@@ -26,10 +27,12 @@ class SellingProductRepositoryImpl(
             .map { entity -> entity.toDomain() }
     }
 
+    @Transactional
     override fun deleteById(id: Long) {
         return sellingProductJpaRepository.deleteById(id)
     }
 
+    @Transactional
     override fun update(sellingProduct: SellingProduct) {
         sellingProductJpaRepository.save(SellingProductEntity.from(sellingProduct))
     }

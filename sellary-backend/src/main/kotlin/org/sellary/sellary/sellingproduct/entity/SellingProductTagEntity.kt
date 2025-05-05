@@ -8,7 +8,7 @@ import org.sellary.sellary.core.out.persistence.AuditEntity
 
 @Entity
 class SellingProductTagEntity(
-    val tag: String,
+    var tag: String,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "selling_product_id", nullable = false)
@@ -16,5 +16,25 @@ class SellingProductTagEntity(
 ) : AuditEntity() {
     fun toDomain() : String {
         return tag
+    }
+    companion object {
+        fun from(s: String, sellingProduct: SellingProductEntity): SellingProductTagEntity {
+            return SellingProductTagEntity(
+                tag = s,
+                sellingProduct = sellingProduct
+            )
+        }
+
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is SellingProductTagEntity) return false
+
+        return tag == other.tag
+    }
+
+    override fun hashCode(): Int {
+        return tag.hashCode()
     }
 }
