@@ -7,3 +7,8 @@ spring:
     username: ENC(KLN7Q6kwY8uNisO7yYNvzQ==)
     password: ENC(UjnM3zCSmollOHcUKq942lStef3PW7Am)
     driver-class-name: org.postgresql.Driver
+
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
