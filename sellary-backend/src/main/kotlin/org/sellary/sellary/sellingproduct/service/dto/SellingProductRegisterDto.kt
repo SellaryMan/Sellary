@@ -4,7 +4,6 @@ import org.sellary.sellary.sellingproduct.domain.SellingProduct
 import java.util.*
 
 data class SellingProductRegisterDto(
-    val id: Long? = null,
     val name: String,
     val code: String,
     val barcode: String? = null,
@@ -12,7 +11,6 @@ data class SellingProductRegisterDto(
 ) {
     fun toDomain(): SellingProduct {
         return SellingProduct(
-            id = this.id,
             name = this.name,
             code = this.code,
             barcode = this.barcode,
