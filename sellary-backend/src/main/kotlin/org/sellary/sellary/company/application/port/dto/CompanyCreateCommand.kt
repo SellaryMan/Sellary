@@ -4,7 +4,7 @@ import jakarta.validation.constraints.NotBlank
 import org.sellary.sellary.company.application.domain.Company
 
 data class CompanyCreateCommand(
-    @NotBlank
+    @field:NotBlank
     val name: String,
 ) {
     fun toDomain(): Company =
