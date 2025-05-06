@@ -4,6 +4,7 @@ import jakarta.persistence.EntityManager
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertInstanceOf
+import org.sellary.sellary.autoconfigure.PartialDataJpaTest
 import org.sellary.sellary.shippedproduct.adapter.out.persistence.ShippedProductCommandJPAPort
 import org.sellary.sellary.shippedproduct.adapter.out.persistence.ShippedProductJpaRepository
 import org.sellary.sellary.shippedproduct.adapter.out.persistence.ShippedProductQueryJPAPort
@@ -11,19 +12,17 @@ import org.sellary.sellary.shippedproduct.adapter.out.persistence.entity.Shipped
 import org.sellary.sellary.shippedproduct.adapter.out.persistence.entity.ShippedProductEntity
 import org.sellary.sellary.shippedproduct.stub.stubShippedProduct
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.autoconfigure.domain.EntityScan
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import org.springframework.context.annotation.Import
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
 @Import(value = [ShippedProductCommandJPAPort::class, ShippedProductQueryJPAPort::class])
-@DataJpaTest
-@EntityScan(basePackageClasses = [ShippedProductEntity::class])
-@EnableJpaRepositories(basePackageClasses = [ShippedProductJpaRepository::class])
+@PartialDataJpaTest(
+    entityPackageClasses = [ShippedProductEntity::class],
+    repositoryPackageClasses = [ShippedProductJpaRepository::class]
+)
 class ShippedProductCommandPortTest {
 
     @Autowired
