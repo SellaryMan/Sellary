@@ -1,6 +1,6 @@
 package org.sellary.sellary.company.application.service
 
-import org.sellary.sellary.company.application.port.dto.CreateCompanyCommand
+import org.sellary.sellary.company.application.port.dto.CompanyCreateCommand
 import org.sellary.sellary.company.application.port.`in`.CreateCompanyUseCase
 import org.sellary.sellary.company.application.port.out.CompanyCommandPort
 import org.springframework.stereotype.Service
@@ -12,7 +12,7 @@ class CompanyCommandService(
 ) : CreateCompanyUseCase {
 
     @Transactional
-    override fun create(command: CreateCompanyCommand) {
+    override fun create(command: CompanyCreateCommand) {
         val company = command.toDomain()
         companyCommandPort.save(company)
     }
