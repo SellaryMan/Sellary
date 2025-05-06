@@ -1,5 +1,14 @@
 server:
   port: { { sever.port } }
+  tomcat:
+    access log:
+      enabled: true
+      directory: /home/service/log/access
+      prefix: access_log
+      suffix: .log
+      file-date-format: .yyyy-MM-dd
+      pattern: '%{X-Forwarded-For}i %h %l %u %t "%r" %s %b "%{Referer}i" "%{User-Agent}i" %D ms'
+      rotate: true
 
 spring:
   datasource:
@@ -7,8 +16,23 @@ spring:
     username: ENC(KLN7Q6kwY8uNisO7yYNvzQ==)
     password: ENC(UjnM3zCSmollOHcUKq942lStef3PW7Am)
     driver-class-name: org.postgresql.Driver
-
-
   jpa:
     hibernate:
       ddl-auto: validate
+
+# 로깅 설정
+logging:
+  file:
+    name: /home/service/log/logback/logback.log
+  pattern:
+    file: '%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n'
+    console: '%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %highlight(%-5level) %cyan(%logger{36}) - %msg%n'
+  logback:
+    rolling-policy:
+      file-name-pattern: /home/service/log/logback/logback.%d{yyyy-MM-dd}.%i.log
+      max-file-size: 10MB
+      max-history: 1000
+      total-size-cap: 1GB
+  level:
+    root: info
+    org.sellary.sellary: debug
