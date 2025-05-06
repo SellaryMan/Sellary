@@ -2,19 +2,21 @@ package org.sellary.sellary.company.application.port.out
 
 import org.hibernate.validator.internal.util.Contracts.assertNotNull
 import org.junit.jupiter.api.DisplayName
+import org.sellary.sellary.adaptor.out.persistence.CompanyCommandJpaPort
+import org.sellary.sellary.adaptor.out.persistence.CompanyJpaRepository
 import org.sellary.sellary.adaptor.out.persistence.entity.CompanyEntity
 import org.sellary.sellary.autoconfigure.PartialDataJpaTest
 import org.sellary.sellary.company.stub.stubCompany
-import org.sellary.sellary.shippedproduct.adapter.out.persistence.ShippedProductJpaRepository
-import org.sellary.sellary.shippedproduct.adapter.out.persistence.entity.ShippedProductEntity
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager
+import org.springframework.context.annotation.Import
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
+@Import(*[CompanyCommandJpaPort::class])
 @PartialDataJpaTest(
-    entityPackageClasses = [ShippedProductEntity::class],
-    repositoryPackageClasses = [ShippedProductJpaRepository::class]
+    entityPackageClasses = [CompanyEntity::class],
+    repositoryPackageClasses = [CompanyJpaRepository::class]
 )
 class CompanyPortTest {
 
