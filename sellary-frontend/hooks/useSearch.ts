@@ -46,30 +46,70 @@ const initialSearchState: SearchElements = {
 };
 
 interface IUseSearch {
-  searchElements: SearchElements;
-  setProductName: (productName: string) => void;
-  setType: (type: string | null) => void;
-  setProductCode: (product_code: string | null) => void;
-  resetSearchElement: () => void;
-  updateSearchElement: (element: Partial<SearchElements>) => void;
-  products: Product[];
-  filteredProducts: Product[];
-  performSearch: () => void;
+    searchElements: SearchElements;
+    setProductName: (productName: string) => void;
+    setType: (type: string | null) => void;
+    setProductCode: (product_code: string | null) => void;
+    resetSearchElement: () => void;
+    updateSearchElement: (element: Partial<SearchElements>) => void;
+    products: Product[];
+    fetchProducts: (searchType?: string) => void;
+    isLoading: boolean;
+    error: string | null;
 }
 
 const useSearch = (): IUseSearch => {
-  const [searchElements, setSearchElements] = useState<SearchElements>(initialSearchState);
-  const [products, setProducts] = useState<Product[]>([]);
-  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
+    const [searchElements, setSearchElements] = useState<SearchElements>(initialSearchState);
+    const [products, setProducts] = useState<Product[]>([]);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [error, setError] = useState<string | null>(null);
   
   useEffect(() => {
-    const sampleData: Product[] = [
-        // data fetch
-    ];
-    
-    setProducts(sampleData);
-    setFilteredProducts(sampleData);
+    const initialLoad = async () => {
+      await fetchProducts();
+    };
+    initialLoad();
   }, []);
+
+  const fetchProducts = useCallback(async (searchType?: string) => {
+    setIsLoading(true);
+    setError(null);
+    
+    try {
+      const queryParams: Record<string, string> = {};
+      
+      if (searchElements.product_name && searchElements.product_name.trim() !== '') {
+        queryParams.name = searchElements.product_name;
+      }
+      
+      if (searchType) queryParams.queryType = searchType;
+      
+      if (searchElements.product_code) {
+        queryParams.code = searchElements.product_code;
+      }
+      
+      const queryString = new URLSearchParams(queryParams).toString();
+
+      if (!process.env.NEXT_PUBLIC_API_KEY) {
+        throw new Error("no API KEY");
+      }
+
+      const response = await fetch(queryString 
+        ? `${process.env.NEXT_PUBLIC_API_KEY}/shipped-product?${queryString}`
+        : process.env.NEXT_PUBLIC_API_KEY+"/shipped-product");
+      
+      if (!response.ok) {
+        throw new Error(`ERROR : ${response.status}`);
+      }  
+      const data = await response.json();
+      console.log("fetch data : " ,data)
+      setProducts(data);
+    } catch (err) {
+      setError("ERROR");
+    } finally {
+      setIsLoading(false);
+    }
+  }, [searchElements]);
 
   const setProductName = useCallback((productName: string) => {
     setSearchElements(prev => ({ ...prev, product_name: productName }));
@@ -85,37 +125,12 @@ const useSearch = (): IUseSearch => {
 
   const resetSearchElement = useCallback(() => {
     setSearchElements(initialSearchState);
-    setFilteredProducts(products);
-  }, [products]);
+    fetchProducts();
+  }, [fetchProducts]);
 
   const updateSearchElement = useCallback((element: Partial<SearchElements>) => {
     setSearchElements(prev => ({ ...prev, ...element }));
   }, []);
-
-  // 검색 실행 함수
-  const performSearch = useCallback(() => {
-    let filtered = [...products];
-    
-    if (searchElements.product_name && searchElements.product_name.trim() !== '') {
-      filtered = filtered.filter(product => 
-        product.name.toLowerCase().includes(searchElements.product_name!.toLowerCase())
-      );
-    }
-    
-    if (searchElements.type) {
-      filtered = filtered.filter(product => 
-        product.type.toLowerCase() === searchElements.type!.toLowerCase()
-      );
-    }
-    
-    if (searchElements.product_code) {
-      filtered = filtered.filter(product => 
-        product.code.toLowerCase().includes(searchElements.product_code!.toLowerCase())
-      );
-    }
-    
-    setFilteredProducts(filtered);
-  }, [products, searchElements]);
 
   return {
     searchElements,
@@ -125,8 +140,9 @@ const useSearch = (): IUseSearch => {
     resetSearchElement,
     updateSearchElement,
     products,
-    filteredProducts,
-    performSearch
+    isLoading,
+    fetchProducts,
+    error
   };
 };
 
