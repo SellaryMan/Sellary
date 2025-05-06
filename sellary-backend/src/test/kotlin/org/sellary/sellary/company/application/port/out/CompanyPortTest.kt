@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Import
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-@Import(*[CompanyCommandJpaPort::class])
+@Import(CompanyCommandJpaPort::class)
 @PartialDataJpaTest(
     entityPackageClasses = [CompanyEntity::class],
     repositoryPackageClasses = [CompanyJpaRepository::class]
