@@ -2,8 +2,8 @@ package org.sellary.sellary.company.application.port.out
 
 import org.hibernate.validator.internal.util.Contracts.assertNotNull
 import org.junit.jupiter.api.DisplayName
+import org.sellary.sellary.adaptor.out.persistence.entity.CompanyEntity
 import org.sellary.sellary.autoconfigure.PartialDataJpaTest
-import org.sellary.sellary.company.application.domain.Company
 import org.sellary.sellary.company.stub.stubCompany
 import org.sellary.sellary.shippedproduct.adapter.out.persistence.ShippedProductJpaRepository
 import org.sellary.sellary.shippedproduct.adapter.out.persistence.entity.ShippedProductEntity
@@ -34,7 +34,7 @@ class CompanyPortTest {
         val savedCompany = companyCommandPort.save(company)
 
         // then
-        val savedCompanyEntity = em.find(Company::class.java, savedCompany.id)
+        val savedCompanyEntity = em.find(CompanyEntity::class.java, savedCompany.id)
 
         assertNotNull(savedCompanyEntity)
         assertEquals(savedCompany.id, savedCompanyEntity.id)
