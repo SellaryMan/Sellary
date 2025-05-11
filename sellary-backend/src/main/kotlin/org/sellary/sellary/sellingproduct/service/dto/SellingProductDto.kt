@@ -1,14 +1,13 @@
 package org.sellary.sellary.sellingproduct.service.dto
 
 import org.sellary.sellary.sellingproduct.domain.SellingProduct
-import org.sellary.sellary.sellingproduct.domain.SellingShippedProduct
 import java.util.Collections.emptyList
 import java.util.Collections.emptySet
 
 data class SellingProductDto(
     val id: Long? = null,
-    val name: String,
-    val code: String,
+    val name: String? = null,
+    val code: String? = null,
     val barcode: String? = null,
     val tags: Set<String> = emptySet(),
     val sellingShippedProductList: List<SellingShippedProductDto> = emptyList()

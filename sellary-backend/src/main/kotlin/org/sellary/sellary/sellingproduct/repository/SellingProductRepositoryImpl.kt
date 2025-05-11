@@ -18,8 +18,8 @@ class SellingProductRepositoryImpl(
     }
 
     @Transactional
-    override fun register(sellingProduct: SellingProduct) {
-        sellingProductJpaRepository.save(SellingProductEntity.from(sellingProduct))
+    override fun register(sellingProduct: SellingProduct): SellingProductEntity {
+        return sellingProductJpaRepository.save(SellingProductEntity.from(sellingProduct))
     }
 
     override fun findById(id: Long): Optional<SellingProduct> {

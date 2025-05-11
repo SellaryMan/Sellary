@@ -8,6 +8,8 @@ import org.sellary.sellary.sellingproduct.service.SellingProductService
 import org.sellary.sellary.sellingproduct.service.dto.SellingProductDto
 import org.sellary.sellary.sellingproduct.service.dto.SellingProductRegisterDto
 import org.sellary.sellary.sellingproduct.service.dto.SellingProductUpdateDto
+import org.sellary.sellary.shippedproduct.application.port.dto.ShippedProductQuery
+import org.springdoc.core.annotations.ParameterObject
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -22,7 +24,9 @@ class SellingProductController(
         summary = "판매 상품 리스트 조회",
         description = "판매 상품 리스트를 조회합니다."
     )
-    fun getSellingProductList(): List<SellingProductDto> =
+    fun getSellingProductList(
+        @ParameterObject query: ShippedProductQuery
+    ): List<SellingProductDto> =
         sellingProductService.getSellingProductList()
 
     @GetMapping("{id}")

@@ -11,12 +11,12 @@ import java.util.stream.Collectors
 
 @Entity
 class SellingProductEntity(
-    val name: String,
-    val code: String,
+    val name: String? = null,
+    val code: String? = null,
     val barcode: String? = null,
 
     @OneToMany(mappedBy = "sellingProduct", fetch = FetchType.LAZY)
-    var tags: Set<SellingProductTagEntity> = emptySet(),
+    var tags: MutableList<SellingProductTagEntity> = mutableListOf(),
     @OneToMany(mappedBy = "sellingProduct", fetch = FetchType.LAZY)
     val sellingShippedProductList: List<SellingShippedProductEntity> = emptyList()
 ) : AuditEntity() {
@@ -43,7 +43,7 @@ class SellingProductEntity(
             )
             sellingProductEntity.tags = sellingProduct.tags.stream()
                 .map { t -> SellingProductTagEntity.from(t, sellingProductEntity) }
-                .collect(Collectors.toSet())
+                .toList()
             return sellingProductEntity
         }
     }

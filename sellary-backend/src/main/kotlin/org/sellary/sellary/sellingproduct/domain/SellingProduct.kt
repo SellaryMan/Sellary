@@ -5,8 +5,8 @@ import java.util.Collections.emptySet
 
 data class SellingProduct(
     val id: Long? = null,
-    var name: String,
-    var code: String,
+    var name: String? = null,
+    var code: String? = null,
     var barcode: String? = null,
     var tags: Set<String> = emptySet(),
     var sellingShippedProductList: List<SellingShippedProduct> = emptyList()
@@ -18,5 +18,9 @@ data class SellingProduct(
         this.tags = sellingProduct.tags
     }
 
-    companion object
+    companion object {
+        fun of(sellingProductId: Long): SellingProduct {
+            return SellingProduct(id = sellingProductId)
+        }
+    }
 }
