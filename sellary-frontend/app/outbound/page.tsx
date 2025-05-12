@@ -119,9 +119,9 @@ export default function SearchPage() {
                   <p className="font-bold text-xs">{product.name}</p>
                   <p className="text-[12px]">{product.code}</p>
                 </div>
-                <div className="ml-4">
-                <span className="flex gap-1 text-[12px]">
-                    <p className="font-bold">수량</p>
+                <div className="ml-4 min-w-32 min-h-10">
+                  <span className="flex gap-1 text-[12px]">
+                    <p className="font-bold">재고</p>
                     {product.shippedProductExp[0].expDate===null?"-":product.shippedProductExp[0].quantity}
                   </span>
                   <span className="flex gap-1 text-[12px]">
@@ -131,6 +131,22 @@ export default function SearchPage() {
                   <span className="flex gap-1 text-[12px]">
                     <p className="font-bold">유통기한</p>
                     {product.shippedProductExp[0].expDate===null? "-":product.shippedProductExp[0].expDate}
+                  </span>
+                </div>
+
+                <div className="ml-4 min-w-16 min-h-10">
+                  <span className="flex gap-1 text-[12px]">
+                    <p className="font-bold">구매가격</p>
+                    {product.shippedProductCost?.unitPurchasePrice===null?"-":product.shippedProductExp[0].quantity}
+                    <p className="font-bold">원</p>
+                  </span>
+                  <span className="flex gap-1 text-[12px]">
+                    <p className="font-bold">판매가격</p>
+                    {product.shippedProductCost?.unitSellingPrice===null?"-":product.shippedProductCost?.unitSellingPrice}
+                    <p className="font-bold">원</p>
+                  </span>
+                  <span className="flex gap-1 text-[12px]">
+                    
                   </span>
                 </div>
                 <div className="flex items-center gap-2 ml-auto h-3">
