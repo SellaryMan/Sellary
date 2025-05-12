@@ -119,6 +119,20 @@ export default function SearchPage() {
                   <p className="font-bold text-xs">{product.name}</p>
                   <p className="text-[12px]">{product.code}</p>
                 </div>
+                <div className="ml-4">
+                <span className="flex gap-1 text-[12px]">
+                    <p className="font-bold">수량</p>
+                    {product.shippedProductExp[0].expDate===null?"-":product.shippedProductExp[0].quantity}
+                  </span>
+                  <span className="flex gap-1 text-[12px]">
+                    <p className="font-bold">바코드</p>
+                    {product.barcode===null?"-":product.barcode}
+                  </span>
+                  <span className="flex gap-1 text-[12px]">
+                    <p className="font-bold">유통기한</p>
+                    {product.shippedProductExp[0].expDate===null? "-":product.shippedProductExp[0].expDate}
+                  </span>
+                </div>
                 <div className="flex items-center gap-2 ml-auto h-3">
                   {product.tags && product.tags.map((tag, index) => (
                     <p key={index} className="bg-gray-100 px-2 py-1 rounded text-[14px]">{tag}</p>

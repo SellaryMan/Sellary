@@ -3,7 +3,7 @@ import { useState, useCallback, useEffect } from "react"
 
 interface ShippedProductExp {
   id: number;
-  expDate: string | null;
+  expDate: String;
   quantity: number;
   manufactureDate: string | null;
   lowStockThresholdDay: number | null;
