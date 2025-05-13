@@ -3,6 +3,12 @@ import { useState, useRef } from "react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Search, X } from "lucide-react"
+import {
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+  DialogOverlay
+} from "@/components/ui/dialog"
 import useSearch from "@/hooks/useSearch"
 
 export default function SearchPage() {
@@ -89,6 +95,15 @@ export default function SearchPage() {
           </Button>
         </form>
       </div>
+
+      <Dialog>
+        <DialogOverlay className="z-999 bg-black/40"/>
+        <DialogTrigger asChild>
+          <Button>추가</Button>
+        </DialogTrigger>
+        <DialogContent className="z-1001">
+        </DialogContent>
+      </Dialog>
       <div className="w-96">
 
       {isLoading && (
