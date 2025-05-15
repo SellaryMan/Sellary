@@ -11,6 +11,19 @@ import {
 import { Button } from "../ui/button"
 import { Input } from "../ui/input"
 import { useState } from "react";
+
+const CreateShippingProduct =async (bodyData : Product)=>{
+    fetch(`${process.env.NEXT_PUBLIC_POST_SHIPPED_PRODUCT}`,{
+            method : "POST",
+            mode : 'cors',
+            cache : "no-cache",
+            headers :{
+                "Content-Type" : "application/json"
+            },
+            body : JSON.stringify(bodyData)
+        }
+    ).then(res => res.json())
+}
 export interface Product {
     name: string;
     quantity: number;
@@ -72,7 +85,7 @@ export const CreateProduct = ()=>{
                 출고상품 추가
                 </DialogTitle>
             </DialogHeader>
-            <div className="flex gap-12">
+            <div className="flex gap-12 ">
                 <div className="grid gap-1 py-4 [&_label,&_input]:text-[0.6rem] [&_label]:min-w-18 [&_input]:h-6 [&_h2]:text-[1rem] [&_h3]:text-[0.8rem]">
                 <h2>기본정보</h2>
                 <div className="grid grid-cols-12 items-center gap-4">
