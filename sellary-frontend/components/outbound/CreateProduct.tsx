@@ -52,6 +52,14 @@ const initialProductState: Product = {
 
 export const CreateProduct = ()=>{
     const [product, setProduct] = useState<Product>(initialProductState);
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { id, value } = e.target;
+        setProduct(prev => ({
+          ...prev,
+          [id]: value
+        }));
+        console.log(`${id} : ${value}`)
+    };
     return(
         <Dialog>
             <DialogOverlay className="z-999 bg-black/40"/>
@@ -71,7 +79,7 @@ export const CreateProduct = ()=>{
                     <label htmlFor="company" className="text-left">
                     회사명
                     </label>
-                    <Input id="company" className="col-span-3" />
+                    <Input id="company" className="col-span-3"/>
                     <label htmlFor="supplier" className="text-left">
                     공급사
                     </label>
