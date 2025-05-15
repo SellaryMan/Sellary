@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Search, X } from "lucide-react"
 import useSearch from "@/hooks/useSearch"
-
+import { CreateProduct } from "@/components/outbound/CreateProduct"
 export default function SearchPage() {
   const [isFocused, setIsFocused] = useState(false)
   const inputRef = useRef<HTMLInputElement | null>(null)
@@ -89,7 +89,7 @@ export default function SearchPage() {
           </Button>
         </form>
       </div>
-
+      <CreateProduct/>
       <div className="w-96">
 
       {isLoading && (
