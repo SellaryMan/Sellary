@@ -10,6 +10,26 @@ import {
 import { Button } from "../ui/button"
 import { Input } from "../ui/input"
 
+export interface Product {
+    name: string;
+    quantity: number;
+    type: string;
+    code: string;
+    barcode: string;
+    keywords: string[];
+    expDate: string;
+    expQuantity: number;
+    manufactureDate: string;
+    lowStockThresholdDay: number;
+    noShippingThresholdDay: number;
+    unitPurchasePrice: number;
+    boxPurchasePrice: number;
+    palletPurchasePrice: number;
+    unitSellingPrice: number;
+    boxSellingPrice: number;
+    palletSellingPrice: number;
+}
+
 export const CreateProduct = ()=>{
 return(
     <Dialog>
