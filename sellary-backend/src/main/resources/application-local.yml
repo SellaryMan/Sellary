@@ -6,4 +6,3 @@ spring:
     url: jdbc:postgresql://localhost:5432/sellary
     username: ENC(AUC+r4x8I2ipxVMCwwK7QQ==)
     password: ENC(AUC+r4x8I2ipxVMCwwK7QQ==)
-    driver-class-name: org.postgresql.Driver
