@@ -7,9 +7,17 @@ import {
     DialogHeader,
     DialogFooter,
     DialogTitle
-  } from "@/components/ui/dialog"
+    } from "@/components/ui/dialog"
 import { Button } from "../ui/button"
 import { Input } from "../ui/input"
+import {
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectTrigger,
+    SelectValue
+    } from "../ui/select"
 import { useState } from "react";
 
 const CreateShippingProduct =async (bodyData : Product)=>{
@@ -73,6 +81,13 @@ export const CreateProduct = ()=>{
         }));
         console.log(`${id} : ${value}`)
     };
+    const handleSelect = (value : string) =>{
+        setProduct(prev => ({
+          ...prev,
+          type: value
+        }));
+        console.log(value)
+    }
     return(
         <Dialog>
             <DialogOverlay className="z-999 bg-black/40"/>
@@ -100,7 +115,19 @@ export const CreateProduct = ()=>{
                     <label htmlFor="category" className="text-left">
                     구분
                     </label>
-                    <Input id="category" className="col-span-3" />
+                    <Select onValueChange={handleSelect}>
+                        <SelectTrigger className="w-[180px]">
+                            <SelectValue placeholder="구분" />
+                        </SelectTrigger>
+                        <SelectContent className='z-9999999'>
+                            <SelectGroup>
+                            <SelectItem value="INGREDIENT">재료</SelectItem>
+                            <SelectItem value="SUB_INGREDIENT">부재료</SelectItem>
+                            <SelectItem value="PRODUCT">상품</SelectItem>
+                            </SelectGroup>
+                        </SelectContent>
+                    </Select>
+                    {/* <Input id="category" className="col-span-3" /> */}
                 </div>
                 <div className="grid grid-cols-12 items-center gap-4">
                     <label htmlFor="productCode" className="text-left col-span-2">
