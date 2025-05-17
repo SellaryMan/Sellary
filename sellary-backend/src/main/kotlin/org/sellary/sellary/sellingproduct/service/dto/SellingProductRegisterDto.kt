@@ -11,7 +11,7 @@ data class SellingProductRegisterDto(
     val tags: Set<String> = Collections.emptySet(),
     val shippedProductList: List<ShippedProductRegisterDto>,
 ) {
-    class ShippedProductRegisterDto(
+    data class ShippedProductRegisterDto(
         val shippedProductId: Long,
         val quantity: Integer,
 
@@ -28,7 +28,7 @@ data class SellingProductRegisterDto(
         )
     }
 
-    fun extreactSellingShippedProductList(sellingProductId: Long) : List<SellingShippedProduct> {
+    fun extreactSellingShippedProductList(sellingProductId: Long?) : List<SellingShippedProduct> {
         return shippedProductList.stream()
             .map { s -> SellingShippedProduct.from(sellingProductId, s.shippedProductId, s.quantity) }
             .toList()

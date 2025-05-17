@@ -19,7 +19,7 @@ data class SellingProduct(
     }
 
     companion object {
-        fun of(sellingProductId: Long): SellingProduct {
+        fun of(sellingProductId: Long?): SellingProduct {
             return SellingProduct(id = sellingProductId)
         }
     }

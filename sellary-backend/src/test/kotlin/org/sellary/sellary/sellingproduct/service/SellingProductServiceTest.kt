@@ -12,7 +12,7 @@ internal class SellingProductServiceTest {
     fun findAll() {
         val sellingProduct = SellingProduct(1L, "판매상품1", "AB123", "ASDFBKKDF1")
         sellingProductRepository.register(sellingProduct)
-        val sellingProductList = sellingProductService.getSellingProductList()
+        val sellingProductList = sellingProductService.getSellingProductList(query)
         assertThat(sellingProductList).hasSize(1)
     }
 

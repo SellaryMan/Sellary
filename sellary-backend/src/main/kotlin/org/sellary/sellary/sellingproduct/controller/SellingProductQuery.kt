@@ -3,7 +3,6 @@ package org.sellary.sellary.sellingproduct.controller
 import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.enums.ParameterIn
 import io.swagger.v3.oas.annotations.media.Schema
-import org.sellary.sellary.shippedproduct.application.domain.ShippedProductType
 
 data class SellingProductQuery(
     @field:Parameter(
@@ -23,18 +22,9 @@ data class SellingProductQuery(
     val name: String? = null,
 
     @field:Parameter(
-        name = "type",
-        description = "판매 상품 타입",
-        example = "PRODUCT",
-        `in` = ParameterIn.QUERY,
-        schema = Schema(allowableValues = ["INGREDIENT", "SUB_INGREDIENT", "PRODUCT"])
-    )
-    val type: ShippedProductType? = null,
-
-    @field:Parameter(
         name = "code",
         `in` = ParameterIn.QUERY,
-        schema = Schema(description = "판매 상품 코드", example = "PRD-001", type = "string")
+        schema = Schema(description = "판매 상품 코드", example = "SELLING-PRODUCT", type = "string")
     )
     val code: String? = null,
 
@@ -45,21 +35,18 @@ data class SellingProductQuery(
         `in` = ParameterIn.QUERY,
         schema = Schema(
             example = "NAME",
-            allowableValues = ["ID", "NAME", "TYPE", "CODE", "MULTI_CONDITION"]
+            allowableValues = ["ID", "NAME", "CODE", "MULTI_CONDITION"]
         )
     )
-    val queryType: ShippedProductQueryType? = null
+    val queryType: SellingProductQueryType? = null
 )
 
-enum class ShippedProductQueryType {
+enum class SellingProductQueryType {
     @field:Parameter(description = "ID 로 검색")
     ID,
 
     @field:Parameter(description = "name 으로 검색")
     NAME,
-
-    @field:Parameter(description = "type 으로 검색")
-    TYPE,
 
     @field:Parameter(description = "code 로 검색")
     CODE,

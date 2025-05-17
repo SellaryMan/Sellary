@@ -8,7 +8,6 @@ import org.sellary.sellary.sellingproduct.service.SellingProductService
 import org.sellary.sellary.sellingproduct.service.dto.SellingProductDto
 import org.sellary.sellary.sellingproduct.service.dto.SellingProductRegisterDto
 import org.sellary.sellary.sellingproduct.service.dto.SellingProductUpdateDto
-import org.sellary.sellary.shippedproduct.application.port.dto.ShippedProductQuery
 import org.springdoc.core.annotations.ParameterObject
 import org.springframework.web.bind.annotation.*
 
@@ -22,12 +21,12 @@ class SellingProductController(
     @GetMapping
     @Operation(
         summary = "판매 상품 리스트 조회",
-        description = "판매 상품 리스트를 조회합니다."
+        description = "조건에 맞는 판매 상품 목록을 조회합니다. ID, 이름, 타입, 코드 등으로 필터링할 수 있습니다."
     )
     fun getSellingProductList(
-        @ParameterObject query: ShippedProductQuery
+        @ParameterObject query: SellingProductQuery
     ): List<SellingProductDto> =
-        sellingProductService.getSellingProductList()
+        sellingProductService.getSellingProductList(query)
 
     @GetMapping("{id}")
     @Operation(
@@ -56,7 +55,8 @@ class SellingProductController(
                                 "name": "떡볶이",
                                 "code": "SELLING-PRODUCT",
                                 "barcode": "SEPR-001",
-                                "tags": ["고추장", "떡"]
+                                "tags": ["고추장", "떡"],
+                                "shippedProductList": []
                             }
                         """
                     )

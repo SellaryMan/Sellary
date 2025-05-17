@@ -10,7 +10,7 @@ data class SellingShippedProduct(
 ) {
     companion object {
         fun from(
-            sellingProductId: Long,
+            sellingProductId: Long?,
             shippedProductId: Long,
             quantity: Integer,
         ): SellingShippedProduct {
