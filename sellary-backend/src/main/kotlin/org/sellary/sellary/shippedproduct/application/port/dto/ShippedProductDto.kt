@@ -8,9 +8,9 @@ import java.time.LocalDateTime
 
 data class ShippedProductDto(
     val id: Long,
-    val name: String,
-    val type: ShippedProductType,
-    val code: String,
+    val name: String?,
+    val type: ShippedProductType?,
+    val code: String?,
     val barcode: String? = null,
     val tags: Set<String> = emptySet(),
     val shippedProductExp: List<ShippedProductExpDto> = emptyList(),
