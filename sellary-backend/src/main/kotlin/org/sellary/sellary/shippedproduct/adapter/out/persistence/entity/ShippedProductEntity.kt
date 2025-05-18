@@ -7,12 +7,12 @@ import org.sellary.sellary.shippedproduct.application.domain.ShippedProductType
 
 @Entity
 class ShippedProductEntity(
-    val name: String,
-    val code: String,
+    val name: String?,
+    val code: String?,
     val barcode: String? = null,
 
     @Enumerated(EnumType.STRING)
-    val type: ShippedProductType,
+    val type: ShippedProductType?,
 
     @OneToMany(mappedBy = "shippedProduct", fetch = FetchType.LAZY, cascade = [CascadeType.ALL], orphanRemoval = true)
     var tagList: MutableList<ShippedProductTagEntity> = mutableListOf(),
