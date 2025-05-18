@@ -6,7 +6,7 @@ spring:
     open-in-view: false
 
     hibernate:
-      ddl-auto: validate
+      ddl-auto: create
 
 jasypt:
   encryptor:
