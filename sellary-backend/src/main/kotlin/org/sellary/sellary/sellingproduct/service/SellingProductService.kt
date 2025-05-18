@@ -28,7 +28,6 @@ class SellingProductService (
 
             CODE -> query.code.requireNotNull("code")
                 .let { sellingProductRepository.findByCode(it) }
-                .let { listOf(it) }
                 .mapToDto()
 
             // todo: 컨디션 종류에 맞는 조회 로직 수행 필요
@@ -43,8 +42,7 @@ class SellingProductService (
     }
 
     fun registerSellingProduct(registerDto: SellingProductRegisterDto) {
-        val sellingProduct = registerDto.toDomain()
-        sellingProductRepository.register(sellingProduct)
+        val sellingProduct = sellingProductRepository.register(registerDto.toDomain())
         val sellingShippedProductList =
             registerDto.extreactSellingShippedProductList(sellingProduct.id)
         sellingShippedProductRepository.register(sellingShippedProductList)

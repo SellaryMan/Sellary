@@ -15,7 +15,7 @@ class SellingProductTagEntity(
     val sellingProduct: SellingProductEntity? = null,
 ) : AuditEntity() {
     fun toDomain() : String {
-        return tag
+        return this.tag
     }
     companion object {
         fun from(s: String, sellingProduct: SellingProductEntity): SellingProductTagEntity {

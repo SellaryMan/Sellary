@@ -56,7 +56,12 @@ class SellingProductController(
                                 "code": "SELLING-PRODUCT",
                                 "barcode": "SEPR-001",
                                 "tags": ["고추장", "떡"],
-                                "shippedProductList": []
+                                "shippedProductList": [
+                                    {
+                                        "shippedProductId": 2,
+                                        "quantity": 100
+                                    }
+                                ]
                             }
                         """
                     )

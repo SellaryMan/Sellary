@@ -14,6 +14,7 @@ class SellingShippedProductRepositoryImpl(
     private val shippedProductJpaRepository: ShippedProductJpaRepository
 ) : SellingShippedProductRepository {
 
+    @Transactional
     override fun register(productList: List<SellingShippedProduct>) {
         val entityList = productList.stream()
             .map { ssp ->

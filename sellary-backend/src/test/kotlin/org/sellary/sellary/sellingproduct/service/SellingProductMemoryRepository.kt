@@ -10,8 +10,10 @@ class SellingProductMemoryRepository(
         return data;
     }
 
-    override fun register(sellingProduct: SellingProduct) {
+    override fun register(sellingProduct: SellingProduct): SellingProduct {
+        sellingProduct.id = data.size + 1L
         data.add(sellingProduct)
+        return sellingProduct
     }
 
     override fun findById(id: Long): SellingProduct {
@@ -38,11 +40,10 @@ class SellingProductMemoryRepository(
             .toList()
     }
 
-    override fun findByCode(it: String): SellingProduct {
+    override fun findByCode(it: String): List<SellingProduct> {
         return data.stream()
             .filter { s -> s.code == it }
-            .findFirst()
-            .get();
+            .toList()
     }
 
 }

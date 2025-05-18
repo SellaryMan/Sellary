@@ -21,7 +21,7 @@ class SellingShippedProductEntity(
     fun toDomain() : SellingShippedProduct {
         return SellingShippedProduct(
             id = this.id,
-            sellingProduct = this.sellingProduct.toDomain(),
+            shippedProduct = this.shippedProduct.toDomain(),
             shippedProductQuantity = this.shippedProductQuantity
         )
     }

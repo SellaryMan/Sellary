@@ -4,7 +4,7 @@ import java.util.Collections.emptyList
 import java.util.Collections.emptySet
 
 data class SellingProduct(
-    val id: Long? = null,
+    var id: Long? = null,
     var name: String? = null,
     var code: String? = null,
     var barcode: String? = null,
