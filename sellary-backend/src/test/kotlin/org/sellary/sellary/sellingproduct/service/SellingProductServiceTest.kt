@@ -6,7 +6,7 @@ import org.sellary.sellary.sellingproduct.domain.SellingProduct
 
 internal class SellingProductServiceTest {
     private val sellingProductRepository = SellingProductMemoryRepository()
-    private val sellingProductService = SellingProductService(sellingProductRepository)
+    private val sellingProductService = SellingProductServiceImpl(sellingProductRepository)
 
     @Test
     fun findAll() {
