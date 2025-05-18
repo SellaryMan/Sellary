@@ -1,4 +1,5 @@
 'use client'
+import { useState } from "react";
 import {
     Dialog,
     DialogContent,
@@ -18,20 +19,18 @@ import {
     SelectTrigger,
     SelectValue
     } from "../ui/select"
-import { useState } from "react";
-
-const CreateShippingProduct =async (bodyData : Product)=>{
-    fetch(`${process.env.NEXT_PUBLIC_POST_SHIPPED_PRODUCT}`,{
-            method : "POST",
-            mode : 'cors',
-            cache : "no-cache",
-            headers :{
-                "Content-Type" : "application/json"
-            },
-            body : JSON.stringify(bodyData)
-        }
-    ).then(res => res.json())
-}
+// const CreateShippingProduct =async (bodyData : Product)=>{
+//     fetch(`${process.env.NEXT_PUBLIC_POST_SHIPPED_PRODUCT}`,{
+//             method : "POST",
+//             mode : 'cors',
+//             cache : "no-cache",
+//             headers :{
+//                 "Content-Type" : "application/json"
+//             },
+//             body : JSON.stringify(bodyData)
+//         }
+//     ).then(res => res.json())
+// }
 export interface Product {
     name: string;
     quantity: number;
@@ -73,6 +72,7 @@ const initialProductState: Product = {
 
 export const CreateProduct = ()=>{
     const [product, setProduct] = useState<Product>(initialProductState);
+    console.log(product)
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { id, value } = e.target;
         setProduct(prev => ({
@@ -107,7 +107,7 @@ export const CreateProduct = ()=>{
                     <label htmlFor="company" className="text-left">
                     회사명
                     </label>
-                    <Input disabled id="company" className="col-span-3"/>
+                    <Input disabled id="company" className="col-span-3" onChange={handleChange}/>
                     <label htmlFor="supplier" className="text-left">
                     공급사
                     </label>
