@@ -33,7 +33,7 @@ jobs:
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.EC2_HOST_FE }}
-          username: ${{ secrets.EC2_USER }}
+          username: ${{ secrets.EC2_USERNAME_FE }}
           key: ${{ secrets.EC2_SSH_PRIVATE_KEY_FE }}
           port: 22
           source: "sellary-frontend/.next/,sellary-frontend/public/,sellary-frontend/package.json,sellary-frontend/package-lock.json,sellary-frontend/next.config.js"
@@ -45,7 +45,7 @@ jobs:
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.EC2_HOST_FE }}
-          username: ${{ secrets.EC2_USER }}
+          username: ${{ secrets.EC2_USERNAME_FE }}
           key: ${{ secrets.EC2_SSH_PRIVATE_KEY_FE }}
           script: |
               cd ~/sellary-frontend
