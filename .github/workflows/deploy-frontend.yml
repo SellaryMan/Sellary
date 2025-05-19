@@ -1,0 +1,57 @@
+name: Frontend CI/CD
+
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - 'sellary-frontend/**'  
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: 'sellary-frontend/package-lock.json'
+          
+      - name: Install dependencies
+        run: |
+          cd sellary-frontend
+          npm ci
+          
+      - name: Build Next.js application
+        run: |
+          cd sellary-frontend
+          npm run build
+          
+      - name: Deploy to EC2 instance
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: "sellary-frontend/.next/, sellary-frontend/public/, sellary-frontend/package.json, sellary-frontend/package-lock.json, sellary-frontend/next.config.js"
+          target: "~/sellary-frontend"
+          strip_components: 1
+          
+      - name: Configure and start application
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+              cd ~/sellary-frontend
+              npm ci --only=production
+              
+              echo "PORT=${{ secrets.PORT || 3000 }}" > .env
+              
+              pm2 delete sellary-frontend 2>/dev/null || true
+              pm2 start npm --name "sellary-frontend" -- start -- -p ${{ secrets.PORT || 3000 }}
+              pm2 save
