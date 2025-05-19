@@ -35,9 +35,11 @@ jobs:
           host: ${{ secrets.EC2_HOST_FE }}
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_PRIVATE_KEY_FE }}
-          source: "sellary-frontend/.next/, sellary-frontend/public/, sellary-frontend/package.json, sellary-frontend/package-lock.json, sellary-frontend/next.config.js"
+          port: 22
+          source: "sellary-frontend/.next/,sellary-frontend/public/,sellary-frontend/package.json,sellary-frontend/package-lock.json,sellary-frontend/next.config.js"
           target: "~/sellary-frontend"
           strip_components: 1
+          debug: true
           
       - name: Configure and start application
         uses: appleboy/ssh-action@master
