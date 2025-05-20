@@ -117,25 +117,29 @@ export default function SearchPage() {
             {products.map(product => (
               <div key={product.id} className="flex items-center border p-2 rounded-md">
                 <div>
-                  <p className="font-bold text-xs">{product.name}</p>
-                  <p className="text-[12px]">{product.code}</p>
+                  <p className="font-bold mx-2 text-xs min-w-20">{product.name}</p>
+                  
                 </div>
-                <div className="ml-4 min-w-32 min-h-10">
-                  <span className="flex gap-1 text-[12px]">
+                <div className="ml-4 min-w-32 min-h-6">
+                  {/* <span className="flex gap-1 text-[12px]">
                     <p className="font-bold">재고</p>
                     {product.shippedProductExp[0].expDate===null?"-":product.shippedProductExp[0].quantity}
-                  </span>
+                  </span> */}
                   <span className="flex gap-1 text-[12px]">
-                    <p className="font-bold">바코드</p>
+                    <p className="font-bold min-w-10">바코드</p>
                     {product.barcode===null?"-":product.barcode}
                   </span>
                   <span className="flex gap-1 text-[12px]">
+                  <p className="font-bold min-w-10">상품코드</p>
+                    <p className="text-[12px]">{product.code}</p>
+                  </span>
+                  {/* <span className="flex gap-1 text-[12px]">
                     <p className="font-bold">유통기한</p>
                     {product.shippedProductExp[0].expDate===null? "-":product.shippedProductExp[0].expDate}
-                  </span>
+                  </span> */}
                 </div>
 
-                <div className="ml-4 min-w-16 min-h-10">
+                {/* <div className="ml-4 min-w-16 min-h-10">
                   <span className="flex gap-1 text-[12px]">
                     <p className="font-bold">구매가격</p>
                     {product.shippedProductCost?.unitPurchasePrice===null?"-":product.shippedProductExp[0].quantity}
@@ -146,10 +150,7 @@ export default function SearchPage() {
                     {product.shippedProductCost?.unitSellingPrice===null?"-":product.shippedProductCost?.unitSellingPrice}
                     <p className="font-bold">원</p>
                   </span>
-                  <span className="flex gap-1 text-[12px]">
-                    
-                  </span>
-                </div>
+                </div> */}
                 <div className="flex items-center gap-2 ml-auto h-3">
                   {product.tags && product.tags.map((tag, index) => (
                     <p key={index} className="bg-gray-100 px-2 py-1 rounded text-[14px]">{tag}</p>
