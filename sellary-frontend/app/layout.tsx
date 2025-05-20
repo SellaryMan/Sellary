@@ -34,7 +34,10 @@ export default function RootLayout({
           {/* <Header/> */}
           <div className="flex flex-1 w-full">
             <div className="flex-1 overflow-x-auto">
-              <SidebarProvider>
+              <SidebarProvider
+                style={{
+                  "--sidebar-width": "8rem",
+                } as React.CSSProperties}>
                 <AppSidebar/>
                   <SidebarTrigger/>
                   <Main>{children}</Main>

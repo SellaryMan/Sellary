@@ -6,40 +6,81 @@ import {
   SidebarFooter,
   SidebarGroup,
   SidebarHeader,
+  SidebarGroupLabel,
+  SidebarGroupAction,
+  SidebarGroupContent,
+  SidebarMenu,
+  SidebarMenuItem
 } from "@/components/ui/sidebar"
 interface SidebarChild {
-    name: string;
+    title: string;
     path: string;
 }
   
 interface SidebarParent {
     parent: string;
-    name : "상품"
+    title : string;
     children: SidebarChild[];
 }
 type SidebarElementsType = SidebarParent[];
 
 const SidebarElements : SidebarElementsType =[
     {
-        parent : "products",
-        name : "상품",
+        parent : "outbound",
+        title : "출고관리",
         children : [{
-                name : "출고상품",
+                title : "출고조회",
                 path : "/outbound"
             },{
-                name : "판매상품",
-                path : "/sales" 
+                title : "출고등록",
+                path : "/outbound/register" 
             }
         ]
-    }
+    },
+    {
+      parent : "products",
+      title : "상품관리",
+      children : [{
+              title : "상품조회",
+              path : "/"
+          },{
+              title : "상품등록",
+              path : "/" 
+          }
+      ]
+  }
 ]
 const AppSidebar = () => {
     return (
         <Sidebar>
           <SidebarHeader />
           <SidebarContent>
-            <SidebarGroup />
-            <SidebarGroup />
+            
+              {SidebarElements.map((el: SidebarParent, idx: number) => (
+              <div key={idx} className="flex flex-col gap-1">
+                <SidebarGroup>
+                  <SidebarGroupLabel className="text-gray-700">{el.title}</SidebarGroupLabel>
+                    <SidebarGroupContent>
+                      <SidebarMenu>
+                      <div className="flex flex-col gap-1">
+                      {el.children.map((child, childIndex) => (
+                        <SidebarMenuItem
+                          key={childIndex} >
+                            <Link 
+                            href={child.path}
+                            className="text-xs ml-3 text-gray-500 hover:text-gray-800"
+                        >
+                          {child.title}
+                        </Link>
+                        </SidebarMenuItem>
+                      ))}
+                    </div>
+                      </SidebarMenu>
+                    </SidebarGroupContent>
+                  </SidebarGroup>
+                </div>
+            ))}
+
           </SidebarContent>
           <SidebarFooter />
         </Sidebar>
