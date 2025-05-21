@@ -7,7 +7,6 @@ import {
   SidebarGroup,
   SidebarHeader,
   SidebarGroupLabel,
-  SidebarGroupAction,
   SidebarGroupContent,
   SidebarMenu,
   SidebarMenuItem

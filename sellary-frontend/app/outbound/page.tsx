@@ -4,12 +4,12 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Search, X } from "lucide-react"
 import useSearch from "@/hooks/useSearch"
-import { CreateProduct } from "@/components/outbound/CreateProduct"
+// import { CreateProduct } from "@/components/outbound/CreateProduct"
 
 // 추후에 제거
 interface ShippedProductExp {
   id: number;
-  expDate: String;
+  expDate: string;
   quantity: number;
   manufactureDate: string | null;
   lowStockThresholdDay: number | null;
@@ -24,7 +24,6 @@ interface ShippedProductCost {
   boxSellingPrice: number;
   palletSellingPrice: number;
 }
-
 interface Product {
   id: number;
   name: string;
@@ -32,7 +31,7 @@ interface Product {
   code: string;
   barcode: string | null;
   tags: string[];
-  shippedProductExp: ShippedProductExp[];
+  shippedProductExp: ShippedProductExp[] | null;
   shippedProductCost: ShippedProductCost | null;
 }
 
