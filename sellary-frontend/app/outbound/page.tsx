@@ -4,7 +4,37 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Search, X } from "lucide-react"
 import useSearch from "@/hooks/useSearch"
-import { CreateProduct } from "@/components/outbound/CreateProduct"
+// import { CreateProduct } from "@/components/outbound/CreateProduct"
+
+// 추후에 제거
+interface ShippedProductExp {
+  id: number;
+  expDate: string;
+  quantity: number;
+  manufactureDate: string | null;
+  lowStockThresholdDay: number | null;
+  noShippingThresholdDay: number | null;
+}
+interface ShippedProductCost {
+  id: number;
+  unitPurchasePrice: number;
+  boxPurchasePrice: number;
+  palletPurchasePrice: number;
+  unitSellingPrice: number;
+  boxSellingPrice: number;
+  palletSellingPrice: number;
+}
+interface Product {
+  id: number;
+  name: string;
+  type: string;
+  code: string;
+  barcode: string | null;
+  tags: string[];
+  shippedProductExp: ShippedProductExp[] | null;
+  shippedProductCost: ShippedProductCost | null;
+}
+
 export default function SearchPage() {
   const [isFocused, setIsFocused] = useState(false)
   const inputRef = useRef<HTMLInputElement | null>(null)
@@ -20,6 +50,8 @@ export default function SearchPage() {
     error
   } = useSearch()
   
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setProductName(e.target.value)
   }
@@ -50,9 +82,14 @@ export default function SearchPage() {
 
   }
 
+  const handleProductSelect = (product: Product) => {
+    setSelectedProduct(product)
+    console.log("Selected : ", product)
+  }
+
   return (
-    <div className="container">
-      <div className="mb-6">
+    <div className="flex container gap-3">
+      <div className="">
         <form onSubmit={handleSubmit} className="flex gap-1">
           <div className="relative flex w-72 gap-4">
             {isFocused && (
@@ -88,10 +125,8 @@ export default function SearchPage() {
             검색
           </Button>
         </form>
-      </div>
-      <CreateProduct/>
+      {/* <CreateProduct/> */}
       <div className="w-96">
-
       {isLoading && (
         <div className="text-center text-gray-500 my-8">
           데이터를 불러오는 중...
@@ -115,39 +150,22 @@ export default function SearchPage() {
           <div className="flex flex-col gap-2">
           <div className="flex w-full text-end text-xs mb-2 ml-1">{products.length}개의 검색결과</div>
             {products.map(product => (
-              <div key={product.id} className="flex items-center border p-2 rounded-md">
+              <div
+                key={product.id}
+                className="flex items-center border p-2 rounded-md cursor-pointer hover:bg-gray-50"
+                onClick={() => handleProductSelect(product)}>
                 <div>
-                  <p className="font-bold text-xs">{product.name}</p>
-                  <p className="text-[12px]">{product.code}</p>
+                  <p className="font-bold mx-2 text-xs min-w-20">{product.name}</p>
+
                 </div>
-                <div className="ml-4 min-w-32 min-h-10">
+                <div className="ml-4 min-w-32 min-h-6">
                   <span className="flex gap-1 text-[12px]">
-                    <p className="font-bold">재고</p>
-                    {product.shippedProductExp[0].expDate===null?"-":product.shippedProductExp[0].quantity}
-                  </span>
-                  <span className="flex gap-1 text-[12px]">
-                    <p className="font-bold">바코드</p>
+                    <p className="font-bold min-w-10">바코드</p>
                     {product.barcode===null?"-":product.barcode}
                   </span>
                   <span className="flex gap-1 text-[12px]">
-                    <p className="font-bold">유통기한</p>
-                    {product.shippedProductExp[0].expDate===null? "-":product.shippedProductExp[0].expDate}
-                  </span>
-                </div>
-
-                <div className="ml-4 min-w-16 min-h-10">
-                  <span className="flex gap-1 text-[12px]">
-                    <p className="font-bold">구매가격</p>
-                    {product.shippedProductCost?.unitPurchasePrice===null?"-":product.shippedProductExp[0].quantity}
-                    <p className="font-bold">원</p>
-                  </span>
-                  <span className="flex gap-1 text-[12px]">
-                    <p className="font-bold">판매가격</p>
-                    {product.shippedProductCost?.unitSellingPrice===null?"-":product.shippedProductCost?.unitSellingPrice}
-                    <p className="font-bold">원</p>
-                  </span>
-                  <span className="flex gap-1 text-[12px]">
-                    
+                  <p className="font-bold min-w-10">상품코드</p>
+                    <p className="text-[12px]">{product.code}</p>
                   </span>
                 </div>
                 <div className="flex items-center gap-2 ml-auto h-3">
@@ -160,6 +178,119 @@ export default function SearchPage() {
           </div>
         </div>
       )}
+      </div>
+    </div>
+      <div className="w-1/2 border rounded-lg p-4 min-h-96">
+        {selectedProduct ? (
+          <div className="flex flex-col">
+            <div className="flex">
+            <h2 className="text-xl font-bold mb-4">{selectedProduct.name}</h2>
+            {selectedProduct.tags && selectedProduct.tags.length > 0 && (
+                  <div className="flex flex-wrap gap-2 ml-auto">
+                    {selectedProduct.tags.map((tag: string, index: number) => (
+                      <span key={index} className="flex flex-col justify-center h-7 bg-gray-100 px-2 py-1 rounded-md text-xs">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+              )}
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="col-span-2">
+                <h3 className="text-sm font-medium text-gray-500">기본 정보</h3>
+                <div className="mt-2 space-y-2 [&>..]: text-xs">
+                  <div className="flex justify-between">
+                    <span className="font-medium">상품명</span>
+                    <span>{selectedProduct.name}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="font-medium">상품유형</span>
+                    <span>{selectedProduct.type}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="font-medium">상품코드</span>
+                    <span>{selectedProduct.code}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="font-medium">바코드</span>
+                    <span>{selectedProduct.barcode || "-"}</span>
+                  </div>
+                </div>
+              </div>
+              
+
+              {selectedProduct.shippedProductCost && (
+                <div className="col-span-2 mt-4">
+                  <h3 className="text-sm font-medium text-gray-500">비용 정보</h3>
+                  <div className="mt-2 grid grid-cols-2 gap-2 bg-gray-50 p-3 rounded [&>div]:text-xs">
+                    <div>
+                      <p className="text-xs text-gray-500">단위 구매가</p>
+                      <p className="font-medium">{selectedProduct.shippedProductCost.unitPurchasePrice.toLocaleString()}원</p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-gray-500">박스 구매가</p>
+                      <p className="font-medium">{selectedProduct.shippedProductCost.boxPurchasePrice.toLocaleString()}원</p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-gray-500">팔레트 구매가</p>
+                      <p className="font-medium">{selectedProduct.shippedProductCost.palletPurchasePrice.toLocaleString()}원</p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-gray-500">단위 판매가</p>
+                      <p className="font-medium">{selectedProduct.shippedProductCost.unitSellingPrice.toLocaleString()}원</p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-gray-500">박스 판매가</p>
+                      <p className="font-medium">{selectedProduct.shippedProductCost.boxSellingPrice.toLocaleString()}원</p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-gray-500">팔레트 판매가</p>
+                      <p className="font-medium">{selectedProduct.shippedProductCost.palletSellingPrice.toLocaleString()}원</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+              
+              {selectedProduct.shippedProductExp && selectedProduct.shippedProductExp.length > 0 && (
+                <div className="col-span-2 mt-2">
+                  <h3 className="text-sm font-medium text-gray-500">유통기한 정보</h3>
+                  <div className="mt-2 space-y-3 [&>div]:text-xs">
+                    {selectedProduct.shippedProductExp.map((exp) => (
+                      <div key={exp.id} className="bg-gray-50 p-3 rounded">
+                        <div className="grid grid-cols-2 gap-2">
+                          <div>
+                            <p className="text-xs text-gray-500">유통기한</p>
+                            <p className="font-medium">{exp.expDate.toString()}</p>
+                          </div>
+                          <div>
+                              <p className="text-xs text-gray-500">제조일자</p>
+                              <p className="font-medium">{exp.manufactureDate}</p>
+                            </div>
+                            <div>
+                              <p className="text-xs text-gray-500">재고 부족 기준일</p>
+                              <p className="font-medium">{exp.lowStockThresholdDay}일</p>
+                            </div>
+                            <div>
+                              <p className="text-xs text-gray-500">출고 불가 기준일</p>
+                              <p className="font-medium">{exp.noShippingThresholdDay}일</p>
+                            </div>
+                          <div>
+                            <p className="text-xs text-gray-500">수량</p>
+                            <p className="font-medium">{exp.quantity}</p>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        ) : (
+          <div className="flex items-center justify-center h-full text-gray-400">
+            검색 결과에서 상품을 선택하면 상세 정보가 표시됩니다.
+          </div>
+        )}
       </div>
     </div>
   )

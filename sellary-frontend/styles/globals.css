@@ -84,7 +84,7 @@ body {
   display : grid;
   grid-template-areas:
   "header header"
-  "sidebar main"
+  "main"
   ;
   grid-template-rows: 12vh 88vh;
   grid-template-columns: 15vw 85vw;
@@ -95,9 +95,6 @@ body {
 header{
   background-color: var(--main-color);
   grid-area: header;
-}
-aside{
-  grid-area : sidebar;
 }
 main{
   grid-area : main;
