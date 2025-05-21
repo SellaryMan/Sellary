@@ -5,6 +5,37 @@ import { Button } from "@/components/ui/button"
 import { Search, X } from "lucide-react"
 import useSearch from "@/hooks/useSearch"
 import { CreateProduct } from "@/components/outbound/CreateProduct"
+
+// 추후에 제거
+interface ShippedProductExp {
+  id: number;
+  expDate: String;
+  quantity: number;
+  manufactureDate: string | null;
+  lowStockThresholdDay: number | null;
+  noShippingThresholdDay: number | null;
+}
+interface ShippedProductCost {
+  id: number;
+  unitPurchasePrice: number;
+  boxPurchasePrice: number;
+  palletPurchasePrice: number;
+  unitSellingPrice: number;
+  boxSellingPrice: number;
+  palletSellingPrice: number;
+}
+
+interface Product {
+  id: number;
+  name: string;
+  type: string;
+  code: string;
+  barcode: string | null;
+  tags: string[];
+  shippedProductExp: ShippedProductExp[];
+  shippedProductCost: ShippedProductCost | null;
+}
+
 export default function SearchPage() {
   const [isFocused, setIsFocused] = useState(false)
   const inputRef = useRef<HTMLInputElement | null>(null)
@@ -20,6 +51,8 @@ export default function SearchPage() {
     error
   } = useSearch()
   
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setProductName(e.target.value)
   }
@@ -50,9 +83,14 @@ export default function SearchPage() {
 
   }
 
+  const handleProductSelect = (product: Product) => {
+    setSelectedProduct(product)
+    console.log("Selected : ", product)
+  }
+
   return (
-    <div className="container">
-      <div className="mb-6">
+    <div className="flex container">
+      <div className="">
         <form onSubmit={handleSubmit} className="flex gap-1">
           <div className="relative flex w-72 gap-4">
             {isFocused && (
@@ -88,10 +126,8 @@ export default function SearchPage() {
             검색
           </Button>
         </form>
-      </div>
-      <CreateProduct/>
+      {/* <CreateProduct/> */}
       <div className="w-96">
-
       {isLoading && (
         <div className="text-center text-gray-500 my-8">
           데이터를 불러오는 중...
@@ -115,16 +151,15 @@ export default function SearchPage() {
           <div className="flex flex-col gap-2">
           <div className="flex w-full text-end text-xs mb-2 ml-1">{products.length}개의 검색결과</div>
             {products.map(product => (
-              <div key={product.id} className="flex items-center border p-2 rounded-md">
+              <div
+                key={product.id}
+                className="flex items-center border p-2 rounded-md cursor-pointer hover:bg-gray-50"
+                onClick={() => handleProductSelect(product)}>
                 <div>
                   <p className="font-bold mx-2 text-xs min-w-20">{product.name}</p>
-                  
+
                 </div>
                 <div className="ml-4 min-w-32 min-h-6">
-                  {/* <span className="flex gap-1 text-[12px]">
-                    <p className="font-bold">재고</p>
-                    {product.shippedProductExp[0].expDate===null?"-":product.shippedProductExp[0].quantity}
-                  </span> */}
                   <span className="flex gap-1 text-[12px]">
                     <p className="font-bold min-w-10">바코드</p>
                     {product.barcode===null?"-":product.barcode}
@@ -133,24 +168,7 @@ export default function SearchPage() {
                   <p className="font-bold min-w-10">상품코드</p>
                     <p className="text-[12px]">{product.code}</p>
                   </span>
-                  {/* <span className="flex gap-1 text-[12px]">
-                    <p className="font-bold">유통기한</p>
-                    {product.shippedProductExp[0].expDate===null? "-":product.shippedProductExp[0].expDate}
-                  </span> */}
                 </div>
-
-                {/* <div className="ml-4 min-w-16 min-h-10">
-                  <span className="flex gap-1 text-[12px]">
-                    <p className="font-bold">구매가격</p>
-                    {product.shippedProductCost?.unitPurchasePrice===null?"-":product.shippedProductExp[0].quantity}
-                    <p className="font-bold">원</p>
-                  </span>
-                  <span className="flex gap-1 text-[12px]">
-                    <p className="font-bold">판매가격</p>
-                    {product.shippedProductCost?.unitSellingPrice===null?"-":product.shippedProductCost?.unitSellingPrice}
-                    <p className="font-bold">원</p>
-                  </span>
-                </div> */}
                 <div className="flex items-center gap-2 ml-auto h-3">
                   {product.tags && product.tags.map((tag, index) => (
                     <p key={index} className="bg-gray-100 px-2 py-1 rounded text-[14px]">{tag}</p>
@@ -162,6 +180,10 @@ export default function SearchPage() {
         </div>
       )}
       </div>
+    </div>
+    <div className="">
+      hi
+    </div>
     </div>
   )
 }
