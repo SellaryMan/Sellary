@@ -14,8 +14,9 @@ jobs:
 
       - name: Create .env file
         run: |
-          echo NEXT_PUBLIC_API_KEY=${{ secrets.NEXT_PUBLIC_API_KEY }} >> .env
-          echo NEXT_PUBLIC_POST_SHIPPED_PRODUCT=${{ secrets.NEXT_PUBLIC_POST_SHIPPED_PRODUCT }} >> .env
+          cd sellary-frontend
+          echo "NEXT_PUBLIC_API_KEY=${{ secrets.NEXT_PUBLIC_API_KEY }}" >> .env
+          echo "NEXT_PUBLIC_POST_SHIPPED_PRODUCT=${{ secrets.NEXT_PUBLIC_POST_SHIPPED_PRODUCT }}" >> .env
       
       - name: Setup Node.js
         uses: actions/setup-node@v3
@@ -41,7 +42,7 @@ jobs:
           username: ${{ secrets.EC2_USERNAME_FE }}
           key: ${{ secrets.EC2_SSH_PRIVATE_KEY_FE }}
           port: 22
-          source: "sellary-frontend/.next/,sellary-frontend/public/,sellary-frontend/package.json,sellary-frontend/package-lock.json,sellary-frontend/next.config.js"
+          source: "sellary-frontend/.next/,sellary-frontend/public/,sellary-frontend/package.json,sellary-frontend/package-lock.json,sellary-frontend/next.config.js,sellary-frontend/.env"
           target: "~/sellary-frontend"
           strip_components: 1
           debug: true
@@ -56,7 +57,7 @@ jobs:
               cd ~/sellary-frontend
               npm ci --only=production
               
-              echo "PORT=${{ secrets.PORT || 3000 }}" > .env
+              echo "PORT=${{ secrets.PORT || 3000 }}" >> .env
               
               pm2 delete sellary-frontend 2>/dev/null || true
               pm2 start npm --name "sellary-frontend" -- start -- -p ${{ secrets.PORT || 3000 }}
