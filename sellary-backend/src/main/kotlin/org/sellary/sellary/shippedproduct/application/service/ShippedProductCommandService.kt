@@ -27,7 +27,7 @@ class ShippedProductCommandService(
         shippedProductCommandPort.delete(id)
     }
 
-    private fun verifyDuplicateCode(code: String) {
+    private fun verifyDuplicateCode(code: String?) {
         if (shippedProductQueryPort.existsByCode(code)) {
             throw IllegalArgumentException("이미 등록된 출고상품 코드입니다.: $code")
         }

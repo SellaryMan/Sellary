@@ -42,6 +42,10 @@ dependencies {
     // logger
     implementation("io.github.oshai:kotlin-logging-jvm:7.0.3")
 
+	// JASYPT dependencies
+	implementation("com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.3")
+    implementation(kotlin("stdlib"))
+
     // test
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")

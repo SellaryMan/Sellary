@@ -1,0 +1,26 @@
+package org.sellary.sellary.sellingproduct.domain
+
+import java.util.Collections.emptyList
+import java.util.Collections.emptySet
+
+data class SellingProduct(
+    var id: Long? = null,
+    var name: String? = null,
+    var code: String? = null,
+    var barcode: String? = null,
+    var tags: Set<String> = emptySet(),
+    var sellingShippedProductList: List<SellingShippedProduct> = emptyList()
+) {
+    fun update(sellingProduct: SellingProduct) {
+        this.name = sellingProduct.name
+        this.code = sellingProduct.code
+        this.barcode = sellingProduct.barcode ?: this.barcode
+        this.tags = sellingProduct.tags
+    }
+
+    companion object {
+        fun of(sellingProductId: Long?): SellingProduct {
+            return SellingProduct(id = sellingProductId)
+        }
+    }
+}
